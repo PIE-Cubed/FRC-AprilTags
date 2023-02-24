@@ -17,7 +17,7 @@ name = "frc-apriltags"  # Required
 #
 # For a discussion on single-sourcing the version, see
 # https://packaging.python.org/guides/single-sourcing-package-version/
-version = "0.1.8"  # Required
+dynamic = ["version"] # Required
 
 # This is a one-line description or tagline of what your project does. This
 # corresponds to the "Summary" metadata field:
@@ -51,7 +51,7 @@ license = {file = "LICENSE.txt"}
 # Note that this is a list of additional keywords, separated
 # by commas, to be used to assist searching for the distribution in a
 # larger catalog.
-keywords = ["sample", "setuptools", "development"]  # Optional
+keywords = ["FRC", "AprilTags", "OpenCV"]  # Optional
 
 # This should be your name or the name of the organization who originally
 # authored the project, and a valid email address corresponding to the name
@@ -136,10 +136,10 @@ dependencies = [ # Optional
 # maintainers, and where to support the project financially. The key is
 # what's used to render the link text on PyPI.
 [project.urls]  # Optional
-"Homepage" = "https://github.com/PIE-Cubed/2023-Jetson-Code"
-"Bug Reports" = "https://github.com/PIE-Cubed/2023-Jetson-Code/issues"
+"Homepage" = "https://github.com/PIE-Cubed/FRC-AprilTags"
+"Bug Reports" = "https://github.com/PIE-Cubed/FRC-AprilTags/issues"
 "Funding" = "https://www.pie3.org/support-pie3.html"
-"Source" = "https://github.com/PIE-Cubed/2023-Jetson-Code"
+"Source" = "https://github.com/PIE-Cubed/FRC-AprilTags"
 
 # The following would provide a command line executable called `sample`
 # which executes the function `main` from this package when invoked.
@@ -155,5 +155,8 @@ dependencies = [ # Optional
 [build-system]
 # These are the assumed default build requirements from pip:
 # https://pip.pypa.io/en/stable/reference/pip/#pep-517-and-518-support
-requires = ["setuptools>=60.0.0", "wheel"]
+requires = ["setuptools>=60.0.0", "setuptools_scm[toml]>=6.2", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+write_to = "frc-apriltags/_version.py"
