@@ -1,5 +1,3 @@
-# Created by Alex Pereira
-
 # Import Libraries
 from wpimath.geometry import Translation3d, Rotation3d, Pose3d
 

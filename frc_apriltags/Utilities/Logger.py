@@ -4,7 +4,7 @@
 import logging
 
 # Starts a logger
-logging.basicConfig(filename = "DetectionLog.log", format="%(levelname)s:%(message)s", encoding = "utf-8", level = logging.DEBUG)
+logging.basicConfig(filename = "./DetectionLog.log", format="%(levelname)s:%(message)s", encoding = "utf-8", level = logging.DEBUG)
 
 # Start of the Logging class
 class Logger:

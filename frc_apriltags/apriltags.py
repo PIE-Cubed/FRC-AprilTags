@@ -1,5 +1,3 @@
-# Created by Alex Pereira
-
 # Import Libraries
 import cv2   as cv
 import numpy as np
@@ -8,17 +6,20 @@ import pupil_apriltags
 from   wpilib import Timer
 
 # Import Classes
-from communications import NetworkCommunications
+from frc_apriltags.communications import NetworkCommunications
 
 # Import Utilities
-from Utilities.Units import Units
-from Utilities.Logger import Logger
+from frc_apriltags.Utilities.Units import Units
+from frc_apriltags.Utilities.Logger import Logger
 
 # The size of the tag in meters
 tagSize = Units.inchesToMeters(6)
 
 # Creates the Detector Class
 class Detector:
+    """
+    Use this class to detect AprilTags from the tag16h5 family.
+    """
     def __init__(self) -> None:
         """
         Constructor for the Detector class.

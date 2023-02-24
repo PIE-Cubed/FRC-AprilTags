@@ -1,17 +1,18 @@
-# Created by Alex Pereira
-
 # Import Libraries
 import cv2 as cv
 import numpy as np
 
 # Import Classes
-from calibration import Calibrate
+from frc_apriltags.calibration import Calibrate
 
 # Import Utilities
-from Utilities.Logger import Logger
+from frc_apriltags.Utilities.Logger import Logger
 
 # Creates the USBCamera class
 class USBCamera:
+    """
+    Use this class to create a USBCamera.
+    """
     def __init__(self, camNum: int, path: str = None, resolution: tuple = (0, 0), calibrate: bool = False) -> None:
         """
         Constructor for the USBCamera class.
@@ -23,10 +24,8 @@ class USBCamera:
         self.camNum = camNum
 
         # Init variables
-        self.width  = -1
-        self.height = -1
-        self.fps    = -1
-        self.logStatus = False
+        self.logStatus  = False
+        self.resolution = resolution
 
         # Creates a capture
         if (path is not None):
@@ -35,6 +34,13 @@ class USBCamera:
         else:
             # Path is unknown, use the camera number
             self.cap = cv.VideoCapture(self.camNum)
+        
+        # Resizes the capture
+        self.resize(resolution)
+
+        # Calibrates if told to do so
+        if (calibrate == True):
+            self.calibrateCamera()
 
         # Updates log
         Logger.logInfo("USBCamera initialized for camera " + str(camNum), True)
@@ -54,26 +60,24 @@ class USBCamera:
         self.cap.set(cv.CAP_PROP_FPS, HIGH_VALUE)
 
         # Gets the highest value they go to
-        self.width  = int(self.cap.get(cv.CAP_PROP_FRAME_WIDTH))
-        self.height = int(self.cap.get(cv.CAP_PROP_FRAME_HEIGHT))
-        self.fps    = int(self.cap.get(cv.CAP_PROP_FPS))
+        width  = int(self.cap.get(cv.CAP_PROP_FRAME_WIDTH))
+        height = int(self.cap.get(cv.CAP_PROP_FRAME_HEIGHT))
+        fps    = int(self.cap.get(cv.CAP_PROP_FPS))
 
         # Set the capture to be MJPG format
         self.cap.set(cv.CAP_PROP_FOURCC, cv.VideoWriter_fourcc(*'MJPG'))
 
         # Prealocate space for stream
-        self.stream = np.zeros(shape = (cameraRes[1], cameraRes[0], 3), dtype = np.uint8)
+        self.stream = self.prealocateSpace((width, height))
 
         # Prints telemetry
-        print("Max Resolution:", str(self.width) + "x" + str(self.height))
-        print("Max FPS:", self.fps)
+        print("Resolution:", str(width) + "x" + str(height))
+        print("Max FPS:", fps)
 
         # Updates log
         Logger.logInfo("Capture resized", self.logStatus)
 
-        return self.cap
-
-    def undistort(self, stream, cameraMatrix, distortion, resolution: tuple):
+    def undistort(self, stream):
         """
         Undistorts an image using cv.undistort()
         @param stream
@@ -83,10 +87,10 @@ class USBCamera:
         @return undistortedStream
         """
         # Creates a cameraMatrix
-        newCameraMatrix, roi = cv.getOptimalNewCameraMatrix(cameraMatrix, distortion, resolution, 1, resolution)
+        newCameraMatrix, roi = cv.getOptimalNewCameraMatrix(self.camMatrix, self.camdistortion, self.resolution, 1, self.resolution)
 
         # Undistorts the image
-        undistortedStream = cv.undistort(stream, cameraMatrix, distortion, None, newCameraMatrix)
+        undistortedStream = cv.undistort(stream, self.camMatrix, self.camdistortion, None, newCameraMatrix)
 
         # Crops the image
         x, y, w, h = roi
@@ -96,25 +100,21 @@ class USBCamera:
 
     def calibrateCamera(self):
         """
-        Calibrates the camera and returns the calibration parameters
-        @return calibrationSuccessful
-        @return cameraMatrix
-        @return cameraDistortion
-        @return rotationVectors
-        @return translationVectors
+        Calibrates the camera and gets the calibration parameters
         """
         # Instance creation
         self.calibrate = Calibrate(self.cap, self.camNum, 15)
 
-        # Return results
-        return self.calibrate.calibrateCamera()
-
-    def getResolution(self):
+        # Get results
+        ret, self.camMatrix, self.camdistortion, rvecs, tvecs = self.calibrate.calibrateCamera()
+    
+    def prealocateSpace(self, cameraRes):
         """
-        Gets the current capture resolution
-        @return resolution (width, height)
+        Prealocates space for the stream.
+        @param cameraResolution
+        @return blankArray
         """
-        return (self.width, self.height)
+        return np.zeros(shape = (cameraRes[1], cameraRes[0], 3), dtype = np.uint8)
 
     def getStream(self):
         """
@@ -125,6 +125,44 @@ class USBCamera:
         __, self.stream = self.cap.read()
 
         return self.stream
+
+    def getUndistortedStream(self):
+        """
+        Gets the stream from this camera's capture
+        @return stream
+        """
+        # Reads the capture
+        __, self.stream = self.cap.read()
+
+        # Undistorts the stream
+        self.stream = self.undistort(self.stream)
+
+        return self.stream
+
+    def getEnd(self):
+        """
+        Checks if the program should end
+        """
+        if (cv.waitKey(1) == ord("q")):
+            print("Process Ended by User")
+            cv.destroyAllWindows()
+            self.cap.release()
+            return True
+        else:
+            return False
+
+    def getMatrix(self):
+        """
+        Returns the intrinsic camera matrix
+        @return cameraMatrix
+        """
+        return self.camMatrix
+
+    def displayStream(self):
+        """
+        Displays a flipped version of the stream 
+        """
+        cv.imshow("Stream", cv.flip(self.stream, 1))
 
     def enableLogging(self):
         """

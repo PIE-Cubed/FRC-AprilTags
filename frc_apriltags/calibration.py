@@ -1,5 +1,3 @@
-# Created by Alex Pereira
-
 # Import Libraries
 import os
 import glob
@@ -7,7 +5,7 @@ import cv2   as cv
 import numpy as np
 
 # Import Utilities
-from Utilities.Logger import Logger
+from frc_apriltags.Utilities.Logger import Logger
 
 # Defines the dimensions of the chessboard
 CHESSBOARD = (7, 7)  # Number of interior corners (width in squares - 1 x height in squares - 1)
@@ -17,6 +15,9 @@ criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 
 # Creates the Calibrate class
 class Calibrate:
+    """
+    Use this class to calibrate your USBCamera.
+    """
     def __init__(self, cap, camNum: int, numImages: int = 15) -> None:
         """
         Constructor for the Calibrate class.

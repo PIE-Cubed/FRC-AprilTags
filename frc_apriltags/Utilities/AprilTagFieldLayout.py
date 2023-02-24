@@ -1,5 +1,3 @@
-# Created by Alex Pereira
-
 # Import Libraries
 import json
 import numpy as np

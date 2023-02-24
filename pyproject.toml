@@ -17,7 +17,7 @@ name = "frc-apriltags"  # Required
 #
 # For a discussion on single-sourcing the version, see
 # https://packaging.python.org/guides/single-sourcing-package-version/
-dynamic = ["version"] # Required
+version = "0.3.0" # Required
 
 # This is a one-line description or tagline of what your project does. This
 # corresponds to the "Summary" metadata field:
@@ -159,4 +159,3 @@ requires = ["setuptools>=60.0.0", "setuptools_scm[toml]>=6.2", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools_scm]
-write_to = "frc-apriltags/_version.py"

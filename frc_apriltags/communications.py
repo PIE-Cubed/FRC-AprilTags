@@ -1,18 +1,19 @@
-# Created by Alex Pereira
-
 # Import Libraries
 import numpy as np
 from   networktables import *
 from   wpimath.geometry import *
 
 # Import Utilities
-from Utilities.Logger import Logger
+from frc_apriltags.Utilities.Logger import Logger
 
 # Variables
 firstTime = True
 
 # Creates the NetworkCommunications Class
 class NetworkCommunications:
+    """
+    Use this class to communicate with the RoboRio over NetworkTables.
+    """
     def __init__(self) -> None:
         """
         Constructor for the NetworkCommunications class.

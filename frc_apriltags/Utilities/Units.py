@@ -1,5 +1,3 @@
-# Created by Alex Pereira
-
 # Import libraries
 import math
 
