@@ -17,7 +17,7 @@ name = "frc-apriltags"  # Required
 #
 # For a discussion on single-sourcing the version, see
 # https://packaging.python.org/guides/single-sourcing-package-version/
-version = "0.3.0.b0" # Required
+version = "0.4.0.b0" # Required
 # Pre-releases denotations:
 # dev releases (denoted with a “.devN” suffix)
 # alpha releases (denoted with a “.aN” suffix)
@@ -110,12 +110,11 @@ classifiers = [  # Optional
 #
 # For an analysis of this field vs pip's requirements files see:
 # https://packaging.python.org/discussions/install-requires-vs-requirements/
-dependencies = [ # Optional
-    "pupil-apriltags",
-    "robotpy[cscore]",
-    "pynetworktables",
-    "transforms3d",
-    "opencv-contrib-python"
+dependencies = [
+    "pupil-apriltags>=1.0.4",
+    "robotpy[cscore]>=2023.4.2",
+    "pynetworktables>=2021.0.0",
+    "opencv-contrib-python>=4.7.0"
 ]
 
 # List additional groups of dependencies here (e.g. development

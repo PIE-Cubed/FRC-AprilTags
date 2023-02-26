@@ -1,9 +1,9 @@
 # Import Libraries
 import cv2   as cv
 import numpy as np
-import transforms3d
 import pupil_apriltags
 from   wpilib import Timer
+from   wpimath.geometry import Pose3d, Rotation3d, Translation3d
 
 # Import Classes
 from frc_apriltags.communications import NetworkCommunications
@@ -85,7 +85,7 @@ class Detector:
                 # Throws out noise
                 if ((hamming <= maxHamming) and (error <= maxError) and (decision_margin >= minConfidence)):
                     # Creates a 3d pose array from the rotation matrix and translation vectors
-                    pose = np.concatenate([rMatrix, tVecs], axis = 1)
+                    poseMatrix = np.concatenate([rMatrix, tVecs], axis = 1)
                 else:
                     # Detected tag is noise, move to next detection
                     continue
@@ -95,18 +95,15 @@ class Detector:
 
             # Draws varying levels of information onto the image
             if (vizualization == 1):
-                self.draw_pose_box(stream, camera_matrix, pose)
+                self.draw_pose_box(stream, camera_matrix, poseMatrix)
             elif (vizualization == 2):
-                self.draw_pose_axes(stream, camera_matrix, pose, center)
+                self.draw_pose_axes(stream, camera_matrix, poseMatrix, center)
             elif (vizualization == 3):
-                self.draw_pose_box(stream, camera_matrix, pose)
-                self.draw_pose_axes(stream, camera_matrix, pose, center)
-
-            # Calculate Euler's Angles
-            euler_angles = self.calculateEulerAngles(pose[:3, :3])
+                self.draw_pose_box(stream, camera_matrix, poseMatrix)
+                self.draw_pose_axes(stream, camera_matrix, poseMatrix, center)
 
             # Adds results to the arrays
-            result = [tag_num, pose, euler_angles]
+            result = [tag_num, poseMatrix]
             results.append(result)
 
             # Determines if the current decision margin is larger than the last one and stores the corresponding data
@@ -131,25 +128,6 @@ class Detector:
             self.comms.setTargetValid(False)
 
         return results, stream
-
-    def calculateEulerAngles(self, rotationalMatrix = None):
-        """
-        Calculates Euler's Angles from a rotationMatrix
-        @param rotationMatrix
-        @return euler_angles (radians)
-        """
-        # Extract the tag data from the detection results
-        if (rotationalMatrix is not None):
-            # Convert the rotation matrix to Euler angles using the sxyz convention
-            euler_angles = transforms3d.euler.mat2euler(rotationalMatrix, "sxyz")
-
-            # Convert the tuple of Euler angles to a NumPy array
-            euler_angles = np.array(euler_angles)
-
-            return euler_angles
-        else:
-            # Returns an array of zeros
-            return np.zeros(3)
 
     def draw_pose_box(self, img, camera_matrix, pose, z_sign = 1):
         """

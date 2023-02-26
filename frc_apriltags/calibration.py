@@ -22,8 +22,8 @@ class Calibrate:
         """
         Constructor for the Calibrate class.
         @param VideoCapture
-        @param Camera Number
-        @param Number of Calibration Images
+        @param camNum: The camera number
+        @param numImages: The number of calibration images to take
         """
         # Localizes parameters
         self.cap               = cap
