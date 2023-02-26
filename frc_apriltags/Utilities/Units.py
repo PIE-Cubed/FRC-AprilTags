@@ -10,6 +10,9 @@ kKilogramsPerLb = 0.453592
 
 # Start of the Units class
 class Units:
+    """
+    Use this class to convert between commonly used FRC units.
+    """
     @staticmethod
     def metersToFeet(meters):
         """

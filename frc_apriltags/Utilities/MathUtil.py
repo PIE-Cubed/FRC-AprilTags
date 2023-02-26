@@ -3,6 +3,9 @@ import numpy as np
 
 # Creates the MathUtil Class 
 class MathUtil:
+    """
+    Use this class to perform useful math functions.
+    """
     @staticmethod
     def clamp(value, low, high):
         """

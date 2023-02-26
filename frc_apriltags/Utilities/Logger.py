@@ -8,6 +8,9 @@ logging.basicConfig(filename = "./DetectionLog.log", format="%(levelname)s:%(mes
 
 # Start of the Logging class
 class Logger:
+    """
+    Use this class to log an debug info you generate.
+    """
     @staticmethod
     def logDebug(debug: str, logStatus: bool = True):
         """

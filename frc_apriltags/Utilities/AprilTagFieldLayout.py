@@ -1,10 +1,11 @@
 # Import Libraries
 import json
+import typing
 import numpy as np
-from enum import Enum
-from typing import Sequence
-from importlib import resources
-from wpimath.geometry import *
+from   enum import Enum
+from   typing import Sequence
+from   importlib import resources
+from   wpimath.geometry import *
 
 # Import Utilities
 from frc_apriltags.Utilities.Logger import Logger
@@ -16,16 +17,17 @@ class   AprilTagFieldLayout:
         kBlueAllianceWallRightSide = "BlueWall"
         kRedAllianceWallRightSide  = "RedWall"
 
+    @typing.overload
     def __init__(self, tags: Sequence[AprilTag], fieldLength: float, fieldWidth: float, isRed = False) -> None:
         """
-        Generates an field with AprilTags for testing
+        Generates an field with AprilTags for testing.
         @param allTags: A list of all known tags
         @param fieldLength: The length (y) of the field in meters
         @param fieldWidth: The width (x) of the field in meters
         @param isRed: If you are on the red alliance
         """
-        # Asserts that the array length is no greater than 8
-        assert(len(tags) <= 8)
+        # Asserts that the array length is no greater than 30
+        assert(len(tags) <= 30)
 
         # Localize parameters
         self.fieldLength = fieldLength
@@ -57,15 +59,15 @@ class   AprilTagFieldLayout:
         elif (isRed == False):
             self.setOrigin(AprilTagFieldLayout.Origin.kBlueAllianceWallRightSide)
 
-    @classmethod
-    def fromJson(cls, name: str, isRed: bool):
+    @typing.overload
+    def __init__(self, name: str, isRed: bool) -> None:
         """
-        Extracts information from the json file about field size and tag locations
+        Generates an field with AprilTags from the WPILib json file.
         @param name: The name of the json file in the year-gamename format
         @param isRed: If you are on the red alliance
         """
-        # Creates a blank array of AprilTags
-        allTags = [AprilTag] * 8
+        # Creates a blank array
+        self.allTags = [Pose3d()] * 9
 
         # Returns the JSON as a dictionary
         with resources.open_binary("frc_apriltags.Tag_Layouts", name + ".json") as fp:
@@ -94,14 +96,11 @@ class   AprilTagFieldLayout:
             pose = Pose3d(x_trans, y_trans, z_trans, Rotation3d(q))
 
             # Adds the tag to the allTags array
-            allTags[id - 1] = AprilTag.fromPose3d(id, pose)
+            self.allTags[id] = pose
 
         # Sets the field dimensions
-        fieldLength = data["field"]["length"]
-        fieldWidth  = data["field"]["width"]
-
-        # Returns an instance of the class
-        return cls(allTags, fieldLength, fieldWidth, isRed)
+        self.fieldLength = data["field"]["length"]
+        self.fieldWidth  = data["field"]["width"]
 
     def setOrigin(self, origin):
         """
