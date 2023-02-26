@@ -1,6 +1,5 @@
 # Import Libraries
 import json
-import typing
 import numpy as np
 from   enum import Enum
 from   typing import Sequence
@@ -12,13 +11,12 @@ from frc_apriltags.Utilities.Logger import Logger
 from frc_apriltags.Utilities.AprilTag import AprilTag
 
 # Creates the AprilTagFieldLayout class
-class   AprilTagFieldLayout:
+class AprilTagFieldLayout:
     class Origin(Enum):
         kBlueAllianceWallRightSide = "BlueWall"
         kRedAllianceWallRightSide  = "RedWall"
 
-    @typing.overload
-    def __init__(self, tags: Sequence[AprilTag], fieldLength: float, fieldWidth: float, isRed = False) -> None:
+    def __init__(self, tags: Sequence[AprilTag], fieldLength: float, fieldWidth: float, isRed = False):
         """
         Generates an field with AprilTags for testing.
         @param allTags: A list of all known tags
@@ -59,15 +57,15 @@ class   AprilTagFieldLayout:
         elif (isRed == False):
             self.setOrigin(AprilTagFieldLayout.Origin.kBlueAllianceWallRightSide)
 
-    @typing.overload
-    def __init__(self, name: str, isRed: bool) -> None:
+    @classmethod
+    def fromJson(cls, name: str, isRed: bool):
         """
         Generates an field with AprilTags from the WPILib json file.
         @param name: The name of the json file in the year-gamename format
         @param isRed: If you are on the red alliance
         """
         # Creates a blank array
-        self.allTags = [Pose3d()] * 9
+        allTags = [AprilTag()] * 9
 
         # Returns the JSON as a dictionary
         with resources.open_binary("frc_apriltags.Tag_Layouts", name + ".json") as fp:
@@ -93,14 +91,17 @@ class   AprilTagFieldLayout:
             q = Quaternion(w_rot, x_rot, y_rot, z_rot)
 
             # Creates a Pose3d object
-            pose = Pose3d(x_trans, y_trans, z_trans, Rotation3d(q))
+            tag = AprilTag.fromQuaternion(id, x_trans, y_trans, z_trans, q)
 
             # Adds the tag to the allTags array
-            self.allTags[id] = pose
+            allTags[id] = tag
 
         # Sets the field dimensions
-        self.fieldLength = data["field"]["length"]
-        self.fieldWidth  = data["field"]["width"]
+        fieldLength = data["field"]["length"]
+        fieldWidth  = data["field"]["width"]
+
+        # Return the class
+        return cls(allTags, fieldLength, fieldWidth, isRed)
 
     def setOrigin(self, origin):
         """

@@ -1,23 +1,12 @@
 # Import Libraries
-import typing
-from   wpimath.geometry import *
+from wpimath.geometry import *
 
 # Start of the AprilTag class
 class AprilTag:
     """
     Use this class to generate an object with the properties of an AprilTag.
     """
-    @typing.overload
-    def __init__(self) -> None:
-        """
-        Constructor for the AprilTag class.
-        """
-        # Creates a default tag
-        self.id = 0
-        self.pose = Pose3d()
-
-    @typing.overload
-    def __init__(self, id: int, pose: Pose3d) -> None:
+    def __init__(self, id: int = 0, pose: Pose3d = Pose3d()):
         """
         Constructor for the AprilTag class.
         @param tagId
@@ -27,20 +16,22 @@ class AprilTag:
         self.id = id
         self.pose = pose
 
-    @typing.overload
-    def __init__(self, id: int, trans: Translation3d, rot: Rotation3d) -> None:
+    @classmethod
+    def fromPoseComponents(cls, id: int, trans: Translation3d, rot: Rotation3d):
         """
         Constructor for the AprilTag class.
         @param tagId
         @param Translation3d
         @param Rotation3d
         """
-        # Localize parameters
-        self.id = id
-        self.pose = Pose3d(trans, rot)
+        # Generate 3D parts
+        pose = Pose3d(trans, rot)
 
-    @typing.overload
-    def __init__(self, id: int, x: float, y: float, z: float, rMatrix) -> None:
+        # Return the class
+        return AprilTag(id, pose)
+
+    @classmethod
+    def fromMatrix(cls, id: int, x: float, y: float, z: float, rMatrix):
         """
         Constructor for the AprilTag class.
         @param tagId
@@ -52,31 +43,31 @@ class AprilTag:
         # Generate 3D parts
         rot   = Rotation3d(rMatrix)
         trans = Translation3d(x, y, z)
+        pose   = Pose3d(trans, rot)
 
-        # Localize parameters
-        self.id = id
-        self.pose = Pose3d(trans, rot)
+        # Return the class
+        return AprilTag(id, pose)
 
-    @typing.overload
-    def __init__(self, id: int, x: float, y: float, z: float, quaterion: Quaternion) -> None:
+    @classmethod
+    def fromQuaternion(cls, id: int, x: float, y: float, z: float, q: Quaternion):
         """
         Constructor for the AprilTag class.
         @param tagId
         @param x: The x offset in meters
         @param y: The y offset in meters
         @param z: The z offset in meters
-        @param quaterion: The 4x4 Wuaterion
+        @param q: The 4x4 Quaterion
         """
         # Generate 3D parts
-        rot   = Rotation3d(quaterion)
+        rot   = Rotation3d(q)
         trans = Translation3d(x, y, z)
+        pose  = Pose3d(trans, rot)
 
-        # Localize parameters
-        self.id = id
-        self.pose = Pose3d(trans, rot)
+        # Return the class
+        return AprilTag(id, pose)
 
-    @typing.overload
-    def __init__(self, id: int, x: float, y: float, z: float, roll: float, pitch: float, yaw: float) -> None:
+    @classmethod
+    def fromDetailed(cls, id: int, x: float, y: float, z: float, roll: float, pitch: float, yaw: float):
         """
         Constructor for the AprilTag class.
         @param tagId
@@ -90,10 +81,10 @@ class AprilTag:
         # Generate 3D parts
         rot   = Rotation3d(roll, pitch, yaw)
         trans = Translation3d(x, y, z)
+        pose  = Pose3d(trans, rot)
 
-        # Localize parameters
-        self.id = id
-        self.pose = Pose3d(trans, rot)
+        # Return the class
+        return AprilTag(id, pose)
 
     def getId(self) -> int:
         """

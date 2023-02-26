@@ -15,7 +15,6 @@
 		<li>The <a href="https://pypi.org/project/opencv-contrib-python/" target="_blank">OpenCV Contributor</a> package</li>
 		<li>The <a href="https://pypi.org/project/numpy/" target="_blank">NumPy</a> package (should install with pupil-apriltags)</li>
 		<li>The <a href="https://pypi.org/project/robotpy/" target="_blank">RobotPy</a> package</li>
-		<li>The <a href="https://pypi.org/project/transforms3d/" target="_blank">Transforms3d</a> package</li>
 		<li>The <a href="https://pypi.org/project/pupil-apriltags/" target="_blank">Pupil Apriltags</a> package</li>
 	</ul>
 </p>
@@ -28,14 +27,14 @@
 </p>
 <p>
 
-    pip install -U pip wheel setuptools transforms3d opencv-contrib-python pupil-apriltags robotpy[cscore]
+    pip install -U pip wheel setuptools opencv-contrib-python pupil-apriltags robotpy[cscore]
 </p>
 
 <h2> How to install on Windows: </h2>
 <p>
     Install <a href="https://www.python.org/downloads/release/python-3108/" target="_blank">Python 3.10.8</a> for Windows, being sure to add Python to PATH. Then, install the required packages using this command:</li>
     
-    pip install -U pip wheel setuptools transforms3d opencv-contrib-python pupil-apriltags robotpy[cscore]
+    pip install -U pip wheel setuptools opencv-contrib-python pupil-apriltags robotpy[cscore]
 </p>
 
 <h2> Writing Programs for Jetson </h2>

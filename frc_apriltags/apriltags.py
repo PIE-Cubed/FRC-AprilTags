@@ -2,14 +2,12 @@
 import cv2   as cv
 import numpy as np
 import pupil_apriltags
-from   wpilib import Timer
-from   wpimath.geometry import Pose3d, Rotation3d, Translation3d
 
 # Import Classes
 from frc_apriltags.communications import NetworkCommunications
 
 # Import Utilities
-from frc_apriltags.Utilities.Units import Units
+from frc_apriltags.Utilities.Units  import Units
 from frc_apriltags.Utilities.Logger import Logger
 
 # The size of the tag in meters
@@ -25,7 +23,6 @@ class Detector:
         Constructor for the Detector class.
         """
         # Instance creation
-        self.timer = Timer()
         self.comms = NetworkCommunications()
 
         # Creates a pupil apriltags detector
