@@ -1,8 +1,6 @@
 # Import Libraries
 import ntcore
-import numpy as np
-from   networktables    import *
-from   wpimath.geometry import *
+from   networktables import *
 
 # Import Utilities
 from frc_apriltags.Utilities.Logger import Logger
@@ -17,7 +15,7 @@ class NetworkCommunications:
         Constructor for the NetworkCommunications class.
         """
         # Variables
-        self.logStatus = False
+        self.logStatus  = False
         self.teamNumber = 2199
 
         # Get a default network table
@@ -61,33 +59,11 @@ class NetworkCommunications:
         @param result
         """
         # Gets variables from result
-        tagId      = result[0]
-        poseMatrix = result[1]
+        tagId = result[0]
+        pose  = result[1]
 
         # Sets the tag value
         self.setBestResultId(tagId)
-
-        # Flattens the pose array into a 1D array
-        flatPose = np.array(poseMatrix).flatten()
-
-        # Creates a temporary Pose3d in the AprilTags WCS
-        rot = Rotation3d(
-            np.array([
-                [flatPose[0], flatPose[1], flatPose[2]],
-                [flatPose[4], flatPose[5], flatPose[6]],
-                [flatPose[8], flatPose[9], flatPose[10]]
-            ])
-        )
-        tempPose = Pose3d(flatPose[3], flatPose[7], flatPose[11], rot)
-
-        # Creates a Pose3d in the field WCS
-        pose = Pose3d(
-            Translation3d(tempPose.Z(), tempPose.X(), -tempPose.Y()),
-            Rotation3d(tempPose.rotation().Z(), tempPose.rotation().X(), tempPose.rotation().Y())
-        )
-
-        # 
-        print(pose.X() * 39.37, pose.Y() * 39.37, pose.Z() * 39.37, pose.rotation().X() * 180/np.pi, pose.rotation().Y() * 180/np.pi, pose.rotation().Z() * 180/np.pi)
 
         # Extracts the x, y, and z translations relative to the field's WCS
         x, y, z = pose.X(), pose.Y(), pose.Z()

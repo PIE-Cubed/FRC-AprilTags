@@ -2,6 +2,8 @@
 import cv2   as cv
 import numpy as np
 import pupil_apriltags
+from   wpilib import Timer
+from   wpimath.geometry import Pose3d, Rotation3d, Translation3d
 
 # Import Classes
 from frc_apriltags.communications import NetworkCommunications
@@ -24,6 +26,7 @@ class Detector:
         """
         # Instance creation
         self.comms = NetworkCommunications()
+        self.timer = Timer()
 
         # Creates a pupil apriltags detector
         self.detector = pupil_apriltags.Detector(families = "tag16h5", nthreads = 10, quad_decimate = 1.0, quad_sigma = 0.0, refine_edges = 2.0, decode_sharpening = 1.00)
@@ -99,8 +102,11 @@ class Detector:
                 self.draw_pose_box(stream, camera_matrix, poseMatrix)
                 self.draw_pose_axes(stream, camera_matrix, poseMatrix, center)
 
+            # Calculate Pose3d
+            pose3d = self.getPose3D(poseMatrix)
+
             # Adds results to the arrays
-            result = [tag_num, poseMatrix]
+            result = [tag_num, pose3d]
             results.append(result)
 
             # Determines if the current decision margin is larger than the last one and stores the corresponding data
@@ -125,6 +131,41 @@ class Detector:
             self.comms.setTargetValid(False)
 
         return results, stream
+
+    def getPose3D(self, poseMatrix = None):
+        """
+        Calculates a WPILib Pose3D from the PupilApriltags matrix
+        @param poseMatrix
+        @return Pose3D: Units in meters and radians
+        """
+        # Extract the tag data from the detection results
+        if (poseMatrix is not None):
+            # Flattens the pose array into a 1D array
+            flatPose = np.array(poseMatrix).flatten()
+
+            # Creates a Pose3D in the AprilTags WCS
+            rot = Rotation3d(
+                np.array([
+                    [flatPose[0], flatPose[1], flatPose[2]],
+                    [flatPose[4], flatPose[5], flatPose[6]],
+                    [flatPose[8], flatPose[9], flatPose[10]]
+                ])
+            )
+            tempPose = Pose3d(flatPose[3], flatPose[7], flatPose[11], rot)
+
+            # Creates a Pose3D in the field WCS
+            pose = Pose3d(
+                Translation3d(tempPose.Z(), tempPose.X(), -tempPose.Y()),
+                Rotation3d(tempPose.rotation().Z(), tempPose.rotation().X(), tempPose.rotation().Y())
+            )
+
+            # 
+            print(Units.metersToInches(pose.X()), Units.metersToInches(pose.Y()), Units.metersToInches(pose.Z()), Units.radiansToDegrees(pose.rotation().X()), Units.radiansToDegrees(pose.rotation().Y()), Units.radiansToDegrees(pose.rotation().Z()))
+
+            return pose
+        else:
+            # Returns a blank Pose3d
+            return Pose3d()
 
     def draw_pose_box(self, img, camera_matrix, pose, z_sign = 1):
         """
