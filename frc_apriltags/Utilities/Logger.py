@@ -3,14 +3,20 @@
 # Import Libraries
 import logging
 
-# Starts a logger
-logging.basicConfig(filename = "./DetectionLog.log", format="%(levelname)s:%(message)s", encoding = "utf-8", level = logging.DEBUG)
-
 # Start of the Logging class
 class Logger:
     """
     Use this class to log an debug info you generate.
     """
+    @staticmethod
+    def setLogPath(dirPath: str = "/home/robolions/Documents/2023-Jetson-Code-Test"):
+        """
+        Enables the logger.
+        @param dirPath: Should be aquired by running "Path(__file__).absolute().parent.__str__()" in the script calling this method
+        """
+        # Starts a logger
+        logging.basicConfig(filename = dirPath + "/DetectionLog.log", format="%(levelname)s:%(message)s", encoding = "utf-8", level = logging.DEBUG)
+
     @staticmethod
     def logDebug(debug: str, logStatus: bool = True):
         """

@@ -140,7 +140,7 @@ class Detector:
         """
         # Extract the tag data from the detection results
         if (poseMatrix is not None):
-            # Flattens the pose array into a 1D array
+            # Flattens the pose matrix into a 1D array
             flatPose = np.array(poseMatrix).flatten()
 
             # Creates a Pose3D in the AprilTags WCS
@@ -158,9 +158,6 @@ class Detector:
                 Translation3d(tempPose.Z(), tempPose.X(), -tempPose.Y()),
                 Rotation3d(tempPose.rotation().Z(), tempPose.rotation().X(), tempPose.rotation().Y())
             )
-
-            # 
-            print(Units.metersToInches(pose.X()), Units.metersToInches(pose.Y()), Units.metersToInches(pose.Z()), Units.radiansToDegrees(pose.rotation().X()), Units.radiansToDegrees(pose.rotation().Y()), Units.radiansToDegrees(pose.rotation().Z()))
 
             return pose
         else:

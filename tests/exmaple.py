@@ -1,23 +1,29 @@
-# Import Classes
-from frc_apriltags.stream    import BasicStreaming
-from frc_apriltags.camera    import USBCamera
+from pathlib import Path
+from wpimath.geometry import *
+from frc_apriltags.stream import BasicStreaming
+from frc_apriltags.camera import USBCamera
 from frc_apriltags.apriltags import Detector
+from frc_apriltags.Utilities.Logger import Logger
 
-# Defines the camera resolutions (width x height)
-tagCamRes    = (1280, 720)
+# Gets the directory path
+dirPath = Path(__file__).absolute().parent.__str__()
+Logger.setLogPath(dirPath)
+
+# Defines the camera resolution (width x height)
+tagCamRes = (1280, 720)
 
 # Creates a USBCamera and calibrates it
-camera    = USBCamera(camNum = 0, path = "/dev/v4l/by-path/platform-70090000.xusb-usb-0:2.4:1.0-video-index0", resolution = tagCamRes, calibrate = False)
+camera = USBCamera(camNum = 0, camPath = None, resolution = tagCamRes, calibrate = True, dirPath = dirPath)
 camMatrix = camera.getMatrix()
 
 # Creates a camera for the drivers
-driverCam = BasicStreaming(camNum = 1, path = "/dev/v4l/by-path/platform-70090000.xusb-usb-0:2.2:1.0-video-index0")
+driverCam = BasicStreaming(camNum = 1)
 
 # Prealocate space for the detection stream
 stream = camera.prealocateSpace(tagCamRes)
 
 # Instance creation
-detector  = Detector()
+detector = Detector()
 
 # Main loop
 while (True):
@@ -26,9 +32,6 @@ while (True):
 
     # Runs April Tag detection on the undistorted image
     results, stream = detector.detectTags(stream, camMatrix, 0)
-
-    # Displays the stream
-    camera.displayStream()
 
     # Press q to end the program
     if ( camera.getEnd() == True ):

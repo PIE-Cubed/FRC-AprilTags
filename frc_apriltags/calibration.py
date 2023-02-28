@@ -8,7 +8,7 @@ import numpy as np
 from frc_apriltags.Utilities.Logger import Logger
 
 # Defines the dimensions of the chessboard
-CHESSBOARD = (7, 7)  # Number of interior corners (width in squares - 1 x height in squares - 1)
+CHESSBOARD = (8, 5)  # Number of interior corners (width in squares - 1 x height in squares - 1)
 
 # Default termination criteria
 criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
@@ -18,12 +18,13 @@ class Calibrate:
     """
     Use this class to calibrate your USBCamera.
     """
-    def __init__(self, cap, camNum: int, numImages: int = 15) -> None:
+    def __init__(self, cap, camNum: int, numImages: int = 15, dirPath: str = "/home/robolions/Documents/2023-Jetson-Code-Test") -> None:
         """
         Constructor for the Calibrate class.
         @param VideoCapture
         @param camNum: The camera number
         @param numImages: The number of calibration images to take
+        @param dirPath: Should be aquired by running "Path(__file__).absolute().parent.__str__()" in the script calling this method
         """
         # Localizes parameters
         self.cap               = cap
@@ -36,14 +37,14 @@ class Calibrate:
 
         # Prepare object points
         self.objp = np.zeros((1, CHESSBOARD[0] * CHESSBOARD[1], 3), np.float32)
-        self.objp[0, :, :2] = np.mgrid[0:CHESSBOARD[0], 0:CHESSBOARD[1]].T.reshape(-1, 2)
+        self.objp[0, :, :2] = np.mgrid[0:CHESSBOARD[0], 0:CHESSBOARD[1]].T.reshape(-1, 2) * 27.5
 
         # Arrays to store object and image points from all images
         self.objPoints = []  # 3D point in real world
         self.imgPoints = []  # 2D point in image plane
 
         # Path to calibration images
-        self.PATH = "/home/robolions/Documents/2023-Jetson-Code-Test/camera{}-{}x{}-images/".format(self.camNum, self.width, self.height)
+        self.PATH = dirPath + "/camera{}-{}x{}-images/".format(self.camNum, self.width, self.height)
 
         # File extension
         self.EXTENSION = ".png"
@@ -237,7 +238,7 @@ class Calibrate:
         img = cv.imread(self.PATH + str(self.calibrationImages) + self.EXTENSION)
 
         # Determines if the calibration imgaes exist
-        if img is not None:
+        if (img is not None):
             pathExists = True
             Logger.logInfo("PATH already exists", self.logStatus)
             print("PATH already exists")
