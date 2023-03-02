@@ -3,7 +3,7 @@ import cv2   as cv
 import numpy as np
 import pupil_apriltags
 from   wpilib import Timer
-from   wpimath.geometry import Pose3d, Rotation3d, Translation3d
+from   wpimath.geometry import *
 
 # Import Classes
 from frc_apriltags.communications import NetworkCommunications
@@ -25,8 +25,8 @@ class Detector:
         Constructor for the Detector class.
         """
         # Instance creation
-        self.comms = NetworkCommunications()
         self.timer = Timer()
+        self.comms = NetworkCommunications()
 
         # Creates a pupil apriltags detector
         self.detector = pupil_apriltags.Detector(families = "tag16h5", nthreads = 10, quad_decimate = 1.0, quad_sigma = 0.0, refine_edges = 2.0, decode_sharpening = 1.00)
@@ -138,26 +138,43 @@ class Detector:
         @param poseMatrix
         @return Pose3D: Units in meters and radians
         """
+        # Variables
+        x, y, z = 0, 0, 0
+
         # Extract the tag data from the detection results
         if (poseMatrix is not None):
             # Flattens the pose matrix into a 1D array
             flatPose = np.array(poseMatrix).flatten()
 
-            # Creates a Pose3D in the AprilTags WCS
-            rot = Rotation3d(
+            # Creates the Pose3D components for a tag in the AprilTags WCS
+            tempRot = Rotation3d(
                 np.array([
                     [flatPose[0], flatPose[1], flatPose[2]],
                     [flatPose[4], flatPose[5], flatPose[6]],
                     [flatPose[8], flatPose[9], flatPose[10]]
                 ])
             )
-            tempPose = Pose3d(flatPose[3], flatPose[7], flatPose[11], rot)
+            tempTrans = Translation3d(flatPose[3], flatPose[7], flatPose[11])
 
-            # Creates a Pose3D in the field WCS
-            pose = Pose3d(
-                Translation3d(tempPose.Z(), tempPose.X(), -tempPose.Y()),
-                Rotation3d(tempPose.rotation().Z(), tempPose.rotation().X(), tempPose.rotation().Y())
-            )
+            # Create a Rotation3d object
+            rot = Rotation3d(tempRot.Z(), -tempRot.X(), -tempRot.Y())
+
+            # Calulates the field relative X
+            x = tempTrans.Z()
+
+            # Calulates the field relative Y coordinate
+            yTrans = Translation2d(x, -tempTrans.X()).rotateBy(Rotation2d(-rot.Z()))
+            y = yTrans.Y()
+
+            # Calulates the field relative Z coordinate
+            zTrans = Translation2d(x, -tempTrans.Y()).rotateBy(Rotation2d(np.pi + rot.Y()))
+            z = zTrans.Y()
+
+            # Create a Translation3d object
+            trans = Translation3d(x, y, z)
+
+            # Creates a Pose3D object in the field WCS
+            pose = Pose3d(trans, rot)
 
             return pose
         else:

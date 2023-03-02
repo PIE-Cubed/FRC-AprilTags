@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2022 - 2023 PIE3 and Members of the Robo-Lions
+Copyright (c) 2022 - 2023 Alex Pereira, the Robo-Lions, and PIE3
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
