@@ -147,27 +147,34 @@ class Detector:
             flatPose = np.array(poseMatrix).flatten()
 
             # Creates the Pose3D components for a tag in the AprilTags WCS
-            tempRot = Rotation3d(
-                np.array([
-                    [flatPose[0], flatPose[1], flatPose[2]],
-                    [flatPose[4], flatPose[5], flatPose[6]],
-                    [flatPose[8], flatPose[9], flatPose[10]]
-                ])
-            )
+            try:
+                tempRot = Rotation3d(
+                    np.array([
+                        [flatPose[0], flatPose[1], flatPose[2]],
+                        [flatPose[4], flatPose[5], flatPose[6]],
+                        [flatPose[8], flatPose[9], flatPose[10]]
+                    ])
+                )
+            except ValueError as e:
+                Logger.logError(e)
+                tempRot = Rotation3d()
             tempTrans = Translation3d(flatPose[3], flatPose[7], flatPose[11])
+
+            # Get the camera's measured X, Y, and Z
+            tempX = tempTrans.Z()
+            y = -tempTrans.X()
+            z = -tempTrans.Y()
 
             # Create a Rotation3d object
             rot = Rotation3d(tempRot.Z(), -tempRot.X(), -tempRot.Y())
 
-            # Calulates the field relative X
-            x = tempTrans.Z()
-
-            # Calulates the field relative Y coordinate
-            yTrans = Translation2d(x, -tempTrans.X()).rotateBy(Rotation2d(-rot.Z()))
+            # Calulates the field relative X and Y coordinate
+            yTrans = Translation2d(tempX, y).rotateBy(Rotation2d(-rot.Z()))
+            x = yTrans.X()
             y = yTrans.Y()
 
             # Calulates the field relative Z coordinate
-            zTrans = Translation2d(x, -tempTrans.Y()).rotateBy(Rotation2d(np.pi + rot.Y()))
+            zTrans = Translation2d(tempX, z).rotateBy(Rotation2d(np.pi + rot.Y()))
             z = zTrans.Y()
 
             # Create a Translation3d object
