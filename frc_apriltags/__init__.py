@@ -6,11 +6,11 @@ except PackageNotFoundError:
     # Package is not installed
     pass
 
-# Import AprilTag related modules
+# Import AprilTag related classes
 from .communications import NetworkCommunications
 from .apriltags      import Detector
 
-# Import Vision related modules
+# Import Vision related classes
 from .calibration    import Calibrate
 from .camera         import USBCamera
 from .stream         import BasicStreaming, CustomStreaming

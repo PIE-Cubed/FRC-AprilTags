@@ -6,6 +6,7 @@ except PackageNotFoundError:
     # Package is not installed
     pass
 
+# Import Utility classes
 from .Logger              import Logger
 from .Units               import Units
 from .MathUtil            import MathUtil

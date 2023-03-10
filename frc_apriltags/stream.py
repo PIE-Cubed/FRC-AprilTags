@@ -37,7 +37,7 @@ class BasicStreaming:
 
     def enableLogging(self):
         """
-        Enables logging for this module
+        Enables logging for this class
         """
         self.logStatus = True
 
@@ -88,12 +88,12 @@ class CustomStreaming:
     def getUnprocessedStream(self):
         """
         Gets the unprocessed stream of this camera.
-        Note: Image processing must happen outside of this module.
+        Note: Image processing must happen outside of this class.
         """
         return self.camera.getStream()
 
     def enableLogging(self):
         """
-        Enables logging for this module
+        Enables logging for this class
         """
         self.logStatus = True

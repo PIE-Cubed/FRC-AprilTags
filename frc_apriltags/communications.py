@@ -99,6 +99,6 @@ class NetworkCommunications:
 
     def enableLogging(self):
         """
-        Enables logging for this module
+        Enables logging for this class
         """
         self.logStatus = True
