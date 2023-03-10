@@ -17,7 +17,7 @@ name = "frc-apriltags"  # Required
 #
 # For a discussion on single-sourcing the version, see
 # https://packaging.python.org/guides/single-sourcing-package-version/
-version = "0.6.0" # Required
+version = "0.6.0.1" # Required
 # Pre-releases denotations:
 # dev releases (denoted with a “.devN” suffix)
 # alpha releases (denoted with a “.aN” suffix)

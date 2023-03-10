@@ -18,6 +18,7 @@ class USBCamera:
         Constructor for the USBCamera class.
         @param camNumber
         @param path: It can be found on Linux by running "find /dev/v4l"
+        @param resolution: It should be in a (width, length) format
         @param calibrate: Should the camera be calibrated this camera
         @param dirPath: Should be aquired by running "Path(__file__).absolute().parent.__str__()" in the script calling this method
         """
@@ -26,6 +27,7 @@ class USBCamera:
 
         # Init variables
         self.logStatus  = False
+        self.calibrate  = calibrate
         self.resolution = resolution
 
         # Creates a capture
@@ -40,7 +42,7 @@ class USBCamera:
         self.resize(resolution)
 
         # Calibrates if told to do so
-        if (calibrate == True):
+        if (self.calibrate == True):
             self.calibrateCamera(dirPath)
 
         # Updates log
@@ -159,6 +161,7 @@ class USBCamera:
     def getEnd(self):
         """
         Checks if the program should end.
+        @return end
         """
         if (cv.waitKey(1) == ord("q")):
             print("Process Ended by User")
@@ -175,10 +178,20 @@ class USBCamera:
         """
         return self.camMatrix
 
-    def displayStream(self):
+    def displayStream(self, streamType: int = 1):
         """
         Displays a flipped version of this camera's stream.
+        @param streamType: 0 for normal stream, 1 for undistorted stream
         """
+        # Gets the desired stream
+        if (self.calibrate == True):
+            if (streamType == 1):
+                self.getUndistortedStream()
+            else:
+                self.getStream()
+        else:
+            self.getStream()
+
         cv.imshow("Stream", cv.flip(self.stream, 1))
 
     def enableLogging(self):
