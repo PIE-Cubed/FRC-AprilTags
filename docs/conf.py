@@ -23,7 +23,7 @@ author    = "Alex Pereira, the Robo-Lions, and PIE3"
 
 # -- General configuration ---------------------------------------------------
 
-master_doc = "index"
+master_doc = "docs/index.rst"
 
 extensions = [
     "sphinx.ext.duration",
