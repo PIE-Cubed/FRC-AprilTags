@@ -3,7 +3,7 @@ import ntcore
 from   networktables import *
 
 # Import Utilities
-from frc_apriltags.Utilities.Logger import Logger
+from frc_apriltags.Utilities import Logger
 
 # Creates the NetworkCommunications Class
 class NetworkCommunications:

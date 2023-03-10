@@ -3,10 +3,10 @@ import cv2   as cv
 import numpy as np
 
 # Import Classes
-from frc_apriltags.calibration import Calibrate
+from frc_apriltags import Calibrate
 
 # Import Utilities
-from frc_apriltags.Utilities.Logger import Logger
+from frc_apriltags.Utilities import Logger
 
 # Creates the USBCamera class
 class USBCamera:

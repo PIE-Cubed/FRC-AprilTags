@@ -5,7 +5,7 @@ import cv2   as cv
 import numpy as np
 
 # Import Utilities
-from frc_apriltags.Utilities.Logger import Logger
+from frc_apriltags.Utilities import Logger
 
 # Defines the dimensions of the chessboard
 CHESSBOARD = (8, 5)  # Number of interior corners (width in squares - 1 x height in squares - 1)

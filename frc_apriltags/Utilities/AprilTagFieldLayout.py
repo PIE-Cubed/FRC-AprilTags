@@ -7,8 +7,8 @@ from   importlib import resources
 from   wpimath.geometry import *
 
 # Import Utilities
-from frc_apriltags.Utilities.Logger import Logger
-from frc_apriltags.Utilities.AprilTag import AprilTag
+from frc_apriltags.Utilities import Logger
+from frc_apriltags.Utilities import AprilTag
 
 # Creates the AprilTagFieldLayout class
 class AprilTagFieldLayout:

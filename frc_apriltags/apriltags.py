@@ -6,11 +6,10 @@ from   wpilib import Timer
 from   wpimath.geometry import *
 
 # Import Classes
-from frc_apriltags.communications import NetworkCommunications
+from frc_apriltags import NetworkCommunications
 
 # Import Utilities
-from frc_apriltags.Utilities.Units  import Units
-from frc_apriltags.Utilities.Logger import Logger
+from frc_apriltags.Utilities import Logger, Units
 
 # The size of the tag in meters
 tagSize = Units.inchesToMeters(6)

@@ -3,10 +3,10 @@ import numpy  as np
 from   cscore import CameraServer as CS
 
 # Import Classes
-from frc_apriltags.camera import USBCamera
+from frc_apriltags import USBCamera
 
 # Import Utilities
-from frc_apriltags.Utilities.Logger import Logger
+from frc_apriltags.Utilities import Logger
 
 # Creates the BasicStreaming Class
 class BasicStreaming:
