@@ -11,18 +11,19 @@
 #
 # import os
 # import sys
-# sys.path.insert(0, os.path.abspath('.'))
+# sys.path.insert(0, os.path.abspath("."))
 
 
 # -- Project information -----------------------------------------------------
 
-project = "FRC-AprilTags"
+project   = "FRC-AprilTags"
 copyright = "2022 - 2023, Alex Pereira, the Robo-Lions, and PIE3"
-author = "Alex Pereira, the Robo-Lions, and PIE3"
+author    = "Alex Pereira, the Robo-Lions, and PIE3"
 
 
 # -- General configuration ---------------------------------------------------
-# -- General configuration
+
+master_doc = "index"
 
 extensions = [
     "sphinx.ext.duration",
