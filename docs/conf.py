@@ -29,6 +29,7 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.intersphinx",
+    "sphinx_tabs.tabs",
 ]
 
 intersphinx_mapping = {
@@ -40,13 +41,37 @@ intersphinx_disabled_domains = ["std"]
 
 templates_path = ["_templates"]
 
-# -- Options for EPUB output
-epub_show_urls = "footnote"
+html_theme_options = {
+    #'analytics_id': 'G-XXXXXXXXXX',  #  Provided by Google in your dashboard
+    'analytics_anonymize_ip': True,
+    'logo_only': False,
+    'display_version': True,
+    'prev_next_buttons_location': 'bottom',
+    'style_external_links': True,
+    'vcs_pageview_mode': '',
+    # Toc options
+    'collapse_navigation': True,
+    'sticky_navigation': True,
+    'navigation_depth': 4,
+    'includehidden': True,
+}
 
-# List of patterns, relative to source directory, that match files and
-# directories to ignore when looking for source files.
-# This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+# The master toctree document.
+master_doc = "index"
+
+# The suffix of source filenames.
+source_suffix = ".rst"
+
+# -- Options for Epub output ----------------------------------------------
+
+# Bibliographic Dublin Core info.
+epub_title     = "FRC-AprilTags"
+epub_author    = "Alex Pereira"
+epub_publisher = "PIE3"
+epub_copyright = "2022-2023, Alex Pereira, the Robo-Lions, and PIE3"
+
+# A list of files that should not be packed into the epub file.
+epub_exclude_files = ["search.html"]
 
 # -- Options for HTML output -------------------------------------------------
 
