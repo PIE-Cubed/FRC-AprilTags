@@ -17,14 +17,19 @@ criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 class Calibrate:
     """
     Use this class to calibrate your USBCamera.
+
+    :param cap: The ``cv2.VideoCapture`` object.
+    :param camNum: The camera number.
+    :param numImages: The number of calibration images to take.
+    :param dirPath: Should be aquired by running ``Path(__file__).absolute().parent.__str__()`` in the script calling this method.
     """
     def __init__(self, cap, camNum: int, numImages: int = 15, dirPath: str = "/home/robolions/Documents/2023-Jetson-Code-Test") -> None:
         """
         Constructor for the Calibrate class.
-        @param VideoCapture
-        @param camNum: The camera number
-        @param numImages: The number of calibration images to take
-        @param dirPath: Should be aquired by running "Path(__file__).absolute().parent.__str__()" in the script calling this method
+        @param cap: The ``cv2.VideoCapture`` object.
+        @param camNum: The camera number.
+        @param numImages: The number of calibration images to take.
+        @param dirPath: Should be aquired by running ``Path(__file__).absolute().parent.__str__()`` in the script calling this method.
         """
         # Localizes parameters
         self.cap               = cap
@@ -58,12 +63,13 @@ class Calibrate:
 
     def calibrateCamera(self):
         """
-        Calibrates the given camera at a certain resolution
-        @return calibrationSuccessful
-        @return cameraMatrix
-        @return cameraDistortion
-        @return rotationVectors
-        @return translationVectors
+        Calibrates the given camera at a certain resolution.
+
+        :return: Calibration successful.
+        :return: The intrinsic camera matrix.
+        :return: The camera's distortion.
+        :return: The camera's rotation vectors.
+        :return: The camera's translation vectors.
         """
         # Variable to see how many images were used in the calibration
         imagesUsed = 0
@@ -192,7 +198,7 @@ class Calibrate:
                 flippedStream = cv.flip(stream, 1)
 
                 # Display the capture
-                cv.imshow("Callibration", flippedStream)
+                cv.imshow("Calibration", flippedStream)
 
                 # Press p to take a calibration image
                 if ( cv.waitKey(1) == ord("p") ):
@@ -221,8 +227,9 @@ class Calibrate:
 
     def getPathExistance(self) -> bool:
         """
-        Gets the existance of a directory at self.PATH
-        @return isDirectoryThere
+        Gets the existance of a directory at self.PATH.
+
+        :return: Is the directory present?
         """
         # Variables
         img = None
@@ -251,7 +258,9 @@ class Calibrate:
 
     def calculateRepredictionError(self):
         """
-        Calulates the reprediction error
+        Calulates the reprediction error.
+
+        :return: The mean reprediction error.
         """
         # Reprediction error
         total_error = 0
@@ -270,6 +279,6 @@ class Calibrate:
 
     def enableLogging(self):
         """
-        Enables logging for this class
+        Enables logging for this class.
         """
         self.logStatus = True

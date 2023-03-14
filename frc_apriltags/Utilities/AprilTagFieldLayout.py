@@ -12,21 +12,27 @@ from frc_apriltags.Utilities import AprilTag
 
 # Creates the AprilTagFieldLayout class
 class AprilTagFieldLayout:
+    """
+    A class to store the positions of all known AprilTags
+
+    :param tags: A list of all known tags.
+    :param fieldLength: The length (y) of the field, in meters.
+    :param fieldWidth: The width (x) of the field, in meters.
+    :param isRed: If you are on the red alliance.
+    """
     class Origin(Enum):
         kBlueAllianceWallRightSide = "BlueWall"
         kRedAllianceWallRightSide  = "RedWall"
 
-    def __init__(self, tags: Sequence[AprilTag], fieldLength: float, fieldWidth: float, isRed = False):
+    def __init__(self, tags: Sequence[AprilTag], fieldLength: float, fieldWidth: float, isRed: bool = False):
         """
         Generates an field with AprilTags for testing.
-        @param allTags: A list of all known tags
-        @param fieldLength: The length (y) of the field in meters
-        @param fieldWidth: The width (x) of the field in meters
-        @param isRed: If you are on the red alliance
-        """
-        # Asserts that the array length is no greater than 30
-        assert(len(tags) <= 30)
 
+        @param tags: A list of all known tags.
+        @param fieldLength: The length (y) of the field, in meters.
+        @param fieldWidth: The width (x) of the field, in meters.
+        @param isRed: If you are on the red alliance.
+        """
         # Localize parameters
         self.fieldLength = fieldLength
         self.fieldWidth = fieldWidth
@@ -61,8 +67,9 @@ class AprilTagFieldLayout:
     def fromJson(cls, name: str, isRed: bool):
         """
         Generates an field with AprilTags from the WPILib json file.
-        @param name: The name of the json file in the year-gamename format
-        @param isRed: If you are on the red alliance
+
+        :param name: The name of the json file in the year-gamename format.
+        :param isRed: If you are on the red alliance.
         """
         # Creates a blank array
         allTags = [AprilTag()] * 9
@@ -106,9 +113,9 @@ class AprilTagFieldLayout:
     def setOrigin(self, origin):
         """
         Sets the origin depending on the alliance color. The origins are calculated from the field dimensions.
+        This transforms the ``Pose3d``'s returned by ``getTagPose()`` to return the correct pose relative to a predefined coordinate frame.
 
-        This transforms the Pose3ds returned by getTagPose() to return the correct pose relative to a predefined coordinate frame.
-        @param origin: The predefined origin
+        :param origin: The predefined origin.
         """
         # Sets the origin
         if (origin == AprilTagFieldLayout.Origin.kBlueAllianceWallRightSide):
@@ -128,14 +135,16 @@ class AprilTagFieldLayout:
     def getTags(self):
         """
         Returns all the created tags
-        @return allTags
+
+        :return: All the tags on the field.
         """
         return self.allTags
 
     def getTagPose(self, id: int) -> Pose3d:
         """
-        Returns the pose of the selected tag
-        @return Pose3d
+        Returns the ``Pose3d`` of the selected tag.
+
+        :return: A WPILib ``Pose3d`` object.
         """
         if (type(self.allTags[id]) is not Pose3d):
             return Pose3d()
@@ -144,6 +153,6 @@ class AprilTagFieldLayout:
 
     def enableLogging(self):
         """
-        Enables logging for this class
+        Enables logging for this class.
         """
         self.logStatus = True

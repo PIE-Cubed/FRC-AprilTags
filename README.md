@@ -12,7 +12,7 @@
 	<strong>FRC-Apriltags is a package developed by Alex Pereira, The Robo-Lions, and PIE3.</strong>
 </p>
 <p>
-	This repository contains code to detect AprilTags from the tag16h5 family and send pertinent information to a RoboRio using NetworkTables.
+	This repository contains the source code for FRC-AprilTags, a python package that is capable of detecting AprilTags from the tag16h5 family and sending pertinent information to a RoboRio using NetworkTables.
 </p>
 
 <h1> Documentation </h1>

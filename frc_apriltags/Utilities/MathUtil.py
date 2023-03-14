@@ -11,10 +11,10 @@ class MathUtil:
         """
         Returns value clamped between low and high boundaries.
         
-        @param value Value to clamp.
-        @param low The lower boundary to which to clamp value.
-        @param high The higher boundary to which to clamp value.
-        @return The clamped value.
+        :param value: Value to clamp.
+        :param low: The lower boundary to which to clamp value.
+        :param high: The higher boundary to which to clamp value.
+        :return: The clamped value.
         """
         return max(low, min(value, high))
 
@@ -24,10 +24,10 @@ class MathUtil:
         Returns 0.0 if the given value is within the specified range around zero. The remaining range
         between the deadband and the maximum magnitude is scaled from 0.0 to the maximum magnitude.
 
-        @param value Value to clip.
-        @param deadband Range around zero.
-        @param maxMagnitude The maximum magnitude of the input. Can be infinite.
-        @return The value after the deadband is applied.
+        :param value: Value to clip.
+        :param deadband: Range around zero.
+        :param maxMagnitude: The maximum magnitude of the input. Can be infinite.
+        :return: The value after the deadband is applied.
         """
         if (abs(value) > deadband):
             if (maxMagnitude / deadband > 1.0e12):
@@ -74,9 +74,9 @@ class MathUtil:
         Returns 0.0 if the given value is within the specified range around zero. The remaining range
         between the deadband and 1.0 is scaled from 0.0 to 1.0.
 
-        @param value Value to clip.
-        @param deadband Range around zero.
-        @return The value after the deadband is applied.
+        :param value: Value to clip.
+        :param deadband: Range around zero.
+        :return: The value after the deadband is applied.
         """
         return MathUtil.applyDeadband(value, deadband, 1)
 
@@ -85,10 +85,10 @@ class MathUtil:
         """
         Returns modulus of input.
 
-        @param input Input value to wrap.
-        @param minimumInput The minimum value expected from the input.
-        @param maximumInput The maximum value expected from the input.
-        @return The wrapped value.
+        :param input: Input value to wrap.
+        :param minimumInput: The minimum value expected from the input.
+        :param maximumInput: The maximum value expected from the input.
+        :return: The wrapped value.
         """
         modulus = maximumInput - minimumInput
 
@@ -107,8 +107,9 @@ class MathUtil:
         """
         Wraps an angle to the range -pi to pi radians.
 
-        @param angleRadians Angle to wrap in radians.
-        @return The wrapped angle."""
+        :param angleRadians: Angle to wrap, in radians.
+        :return: The wrapped angle.
+        """
         return MathUtil.inputModulus(angleRadians, -np.pi, np.pi)
 
     @staticmethod
@@ -116,9 +117,9 @@ class MathUtil:
         """
         Perform linear interpolation between two values.
 
-        @param startValue The value to start at.
-        @param endValue The value to end at.
-        @param t How far between the two values to interpolate. This is clamped to [0, 1].
-        @return The interpolated value.
+        :param startValue: The value to start at.
+        :param endValue: The value to end at.
+        :param t: How far between the two values to interpolate. This is clamped to [0, 1].
+        :return: The interpolated value.
         """
         return startValue + (endValue - startValue) * MathUtil.clamp(t, 0, 1)

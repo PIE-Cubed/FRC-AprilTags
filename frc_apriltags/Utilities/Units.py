@@ -17,8 +17,9 @@ class Units:
     def metersToFeet(meters):
         """
         Converts given meters to feet.
-        @param meters: The meters to convert to feet.
-        @return Feet: Converted from meters.
+
+        :param meters: The meters to convert to feet.
+        :return: Feet.
         """
         return Units.metersToInches(meters) / kInchesPerFoot
 
@@ -26,8 +27,9 @@ class Units:
     def feetToMeters(feet):
         """
         Converts given feet to meters.
-        @param feet: The feet to convert to meters.
-        @return Meters: Converted from feet.
+
+        :param feet: The feet to convert to meters.
+        :return: Meters.
         """
         return Units.inchesToMeters(feet * kInchesPerFoot)
 
@@ -35,8 +37,9 @@ class Units:
     def metersToInches(meters):
         """
         Converts given meters to inches.
-        @param meters: The meters to convert to inches.
-        @return Inches: Converted from meters.
+
+        :param meters: The meters to convert to inches.
+        :return: Inches.
         """
         return meters / kMetersPerInch
 
@@ -44,8 +47,9 @@ class Units:
     def inchesToMeters(inches):
         """
         Converts given inches to meters.
-        @param inches: The inches to convert to meters.
-        Meters: Converted from inches.
+
+        :param inches: The inches to convert to meters.
+        :return: Meters.
         """
         return inches * kMetersPerInch
 
@@ -53,8 +57,9 @@ class Units:
     def degreesToRadians(degrees):
         """
         Converts given degrees to radians.
-        @param degrees: The degrees to convert to radians.
-        @return Radians: Converted from degrees.
+
+        :param degrees: The degrees to convert to radians.
+        :return: Radians.
         """
         return math.radians(degrees)
 
@@ -62,8 +67,9 @@ class Units:
     def radiansToDegrees(radians):
         """
         Converts given radians to degrees.
-        @param radians: The radians to convert to degrees.
-        @return Degrees: Converted from radians.
+
+        :param radians: The radians to convert to degrees.
+        :return: Degrees.
         """
         return math.degrees(radians)
 
@@ -71,8 +77,9 @@ class Units:
     def radiansToRotations(radians):
         """
         Converts given radians to rotations.
-        @param radians: The radians to convert.
-        @return rotations Converted from radians.
+
+        :param radians: The radians to convert.
+        :return: Rotations.
         """
         return radians / (math.pi * 2)
 
@@ -80,8 +87,9 @@ class Units:
     def degreesToRotations(degrees):
         """
         Converts given degrees to rotations.
-        @param degrees: The degrees to convert.
-        @return rotations Converted from degrees.
+
+        :param degrees: The degrees to convert.
+        :return: Rotations.
         """
         return degrees / 360
 
@@ -89,8 +97,9 @@ class Units:
     def rotationsToDegrees(rotations):
         """
         Converts given rotations to degrees.
-        @param rotations: The rotations to convert.
-        @return degrees Converted from rotations.
+
+        :param rotations: The rotations to convert.
+        :return: Degrees.
         """
         return rotations * 360
 
@@ -98,8 +107,9 @@ class Units:
     def rotationsToRadians(rotations):
         """
         Converts given rotations to radians.
-        @param rotations: The rotations to convert.
-        @return radians Converted from rotations.
+
+        :param rotations: The rotations to convert.
+        :return: Radians.
         """
         return rotations * 2 * math.pi
 
@@ -107,8 +117,9 @@ class Units:
     def rotationsPerMinuteToRadiansPerSecond(rpm):
         """
         Converts rotations per minute to radians per second.
-        @param rpm: The rotations per minute to convert to radians per second.
-        @return Radians per second: Converted from rotations per minute.
+
+        :param rpm: The rotations per minute to convert to radians per second.
+        :return: Radians per second.
         """
         return rpm * math.pi / (kSecondsPerMinute / 2)
 
@@ -116,8 +127,9 @@ class Units:
     def radiansPerSecondToRotationsPerMinute(radiansPerSecond):
         """
         Converts radians per second to rotations per minute.
-        @param radiansPerSecond: The radians per second to convert to from rotations per minute.
-        @return Rotations per minute: Converted from radians per second.
+
+        :param radiansPerSecond: The radians per second to convert to from rotations per minute.
+        :return: Rotations per minute.
         """
         return radiansPerSecond * (kSecondsPerMinute / 2) / math.pi
 
@@ -125,8 +137,9 @@ class Units:
     def millisecondsToSeconds(milliseconds):
         """
         Converts given milliseconds to seconds.
-        @param milliseconds: The milliseconds to convert to seconds.
-        @return Seconds: Converted from milliseconds.
+
+        :param milliseconds: The milliseconds to convert to seconds.
+        :return: Seconds.
         """
         return milliseconds / kMillisecondsPerSecond
 
@@ -134,8 +147,9 @@ class Units:
     def secondsToMilliseconds(seconds):
         """
         Converts given seconds to milliseconds.
-        @param seconds: The seconds to convert to milliseconds.
-        @return Milliseconds: Converted from seconds.
+
+        :param seconds: The seconds to convert to milliseconds.
+        :return: Milliseconds.
         """
         return seconds * kMillisecondsPerSecond
 
@@ -143,8 +157,9 @@ class Units:
     def kilogramsToLbs(kilograms):
         """
         Converts kilograms into lbs.
-        @param kilograms: The kilograms to convert to lbs.
-        @return lbs: Converted from kilograms.
+
+        :param kilograms: The kilograms to convert to lbs.
+        :return: lbs.
         """
         return kilograms / kKilogramsPerLb
 
@@ -152,7 +167,8 @@ class Units:
     def lbsToKilograms(lbs):
         """
         Converts lbs into kilograms.
-        @param lbs: The lbs to convert to kilograms.
-        @return Kilograms: Converted from lbs.
+
+        :param lbs: The lbs to convert to kilograms.
+        :return: Kilograms.
         """
         return lbs * kKilogramsPerLb

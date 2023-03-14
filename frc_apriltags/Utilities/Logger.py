@@ -9,10 +9,11 @@ class Logger:
     Use this class to log an debug info you generate.
     """
     @staticmethod
-    def setLogPath(dirPath: str = "/home/robolions/Documents/2023-Jetson-Code-Test"):
+    def setLogPath(dirPath: str = "/tmp/"):
         """
         Enables the logger.
-        @param dirPath: Should be aquired by running "Path(__file__).absolute().parent.__str__()" in the script calling this method
+
+        :param dirPath: Should be aquired by running ``Path(__file__).absolute().parent.__str__()`` in the script calling this method
         """
         # Starts a logger
         logging.basicConfig(filename = dirPath + "/DetectionLog.log", format="%(levelname)s:%(message)s", encoding = "utf-8", level = logging.DEBUG)
@@ -21,8 +22,9 @@ class Logger:
     def logDebug(debug: str, logStatus: bool = True):
         """
         Logs a debug statement.
-        @param debugMessage: The debug message to show
-        @param logStatus: Is loging enabled
+
+        :param debug: The debug message to log
+        :param logStatus: Is logging enabled
         """
         if (logStatus == True):
             logging.debug(debug)
@@ -31,8 +33,9 @@ class Logger:
     def logInfo(info: str, logStatus: bool = True):
         """
         Logs information.
-        @param infoMessage: The info message to show
-        @param logStatus: Is loging enabled
+
+        :param info: The info message to log
+        :param logStatus: Is logging enabled
         """
         if (logStatus == True):
             logging.info(info)
@@ -41,8 +44,9 @@ class Logger:
     def logWarning(warning: str, logStatus: bool = True):
         """
         Logs a warning.
-        @param warning: The warning message to show
-        @param logStatus: Is loging enabled
+
+        :param warning: The warning message to log
+        :param logStatus: Is logging enabled
         """
         if (logStatus == True):
             logging.warning(warning)
@@ -51,8 +55,9 @@ class Logger:
     def logError(error: str, logStatus: bool = True):
         """
         Logs an error.
-        @param error: The error message to show
-        @param logStatus: Is loging enabled
+
+        :param error: The error message to log
+        :param logStatus: Is logging enabled
         """
         if (logStatus == True):
             logging.error(error)
