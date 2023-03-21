@@ -32,10 +32,6 @@ class NetworkCommunications:
         # Get a NetworkTables Instance
         ntinst = NetworkTablesInstance.getDefault()
 
-        # FMSInfo Table
-        FMSInfo = ntinst.getTable("FMSInfo")
-        self.isRedAlliance = FMSInfo.getEntry("IsRedAlliance")  # Boolean
-
         # Create a TagInfo Table and its Entries
         TagInfo = ntinst.getTable("TagInfo")
         self.targetValid   = TagInfo.getEntry("tv")            # Boolean

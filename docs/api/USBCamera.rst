@@ -1,3 +1,5 @@
+.. _usbcamera:
+
 .. title:: USBCamera
 
 .. autoclass:: frc_apriltags.USBCamera

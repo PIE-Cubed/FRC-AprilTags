@@ -1,3 +1,5 @@
+.. _calibrate:
+
 .. title:: Calibrate
 
 .. autoclass:: frc_apriltags.Calibrate

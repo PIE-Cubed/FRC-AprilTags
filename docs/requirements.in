@@ -1,4 +1,4 @@
 sphinx>=5
 sphinx_tabs
 sphinx_rtd_theme
-frc-apriltags
+frc-apriltags>=1.0.0

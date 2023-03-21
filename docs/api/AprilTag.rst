@@ -1,3 +1,5 @@
+.. _apriltag:
+
 .. title:: AprilTag
 
 .. autoclass:: frc_apriltags.Utilities.AprilTag

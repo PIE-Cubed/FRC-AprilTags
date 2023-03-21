@@ -1,3 +1,5 @@
+.. _mathutil:
+
 .. title:: MathUtil
 
 .. autoclass:: frc_apriltags.Utilities.MathUtil

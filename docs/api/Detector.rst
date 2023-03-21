@@ -1,3 +1,5 @@
+.. _detector:
+
 .. title:: Detector
 
 .. autoclass:: frc_apriltags.Detector

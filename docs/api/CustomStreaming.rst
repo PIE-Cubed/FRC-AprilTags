@@ -1,3 +1,5 @@
+.. _customstreaming:
+
 .. title:: Custom Streaming
 
 .. autoclass:: frc_apriltags.CustomStreaming

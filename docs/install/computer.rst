@@ -33,7 +33,7 @@ possible to install without pip, due to its dependencies this is not recommended
 
         .. code-block:: sh
 
-            pip install -U frc-apriltags
+            pip install --upgrade frc-apriltags
 
         If you don't have administrative rights on your computer, either use
         `virtualenv/virtualenvwrapper-win <http://docs.python-guide.org/en/latest/dev/virtualenvs/>`_, or
@@ -57,7 +57,7 @@ possible to install without pip, due to its dependencies this is not recommended
 
         .. code-block:: sh
 
-            pip3 install --U frc-apriltags
+            pip3 install --upgrade frc-apriltags
 
         If you don't have administrative rights on your computer, either use
         `virtualenv/virtualenvwrapper <http://docs.python-guide.org/en/latest/dev/virtualenvs/>`_, or
@@ -72,13 +72,13 @@ possible to install without pip, due to its dependencies this is not recommended
         .. _install_linux:
 
         In order to install one of this packages dependecies,
-        a distro that has glibc 2.35 or newer, and an installer that implements :pep:`600`,
+        a distro that has glibc 2.35 or newer, and an installer that implements PEP 600,
         such as pip 20.3 or newer is required.
         You can check your version of pip with the following command:
 
         .. code-block:: sh
 
-            pip3 -V
+            pip3 --version
 
         If you need to upgrade your version of pip, it is highly recommended to use a
         `virtual environment <https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/>`_.
@@ -93,7 +93,7 @@ possible to install without pip, due to its dependencies this is not recommended
 
         .. code-block:: sh
 
-            pip3 install -U frc-apriltags
+            pip3 install --upgrade frc-apriltags
 
         The following Linux distributions are known to work, but this list is not necessarily comprehensive:
 
@@ -115,7 +115,7 @@ possible to install without pip, due to its dependencies this is not recommended
 
         .. code-block:: sh
 
-            pip3 install -U --find-links https://tortall.net/~robotpy/wheels/2023/raspbian/ wpilib robotpy-hal robotpy-halsim-gui robotpy-installer robotpy-wpilib-utilities robotpy-wpimath robotpy-wpinet robotpy-wpiutil robotpy robotpy-cscore pyntcore pynetworktables
+            pip3 install --upgrade --find-links https://tortall.net/~robotpy/wheels/2023/raspbian/ wpilib robotpy-hal robotpy-halsim-gui robotpy-installer robotpy-wpilib-utilities robotpy-wpimath robotpy-wpinet robotpy-wpiutil robotpy robotpy-cscore pyntcore pynetworktables
         
         .. warning:: 
             g++ and gcc 11 or higher are required to install this package.

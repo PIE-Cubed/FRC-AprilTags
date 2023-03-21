@@ -1,3 +1,5 @@
+.. _networkcommunications:
+
 .. title:: NetworkCommunications
 
 .. autoclass:: frc_apriltags.NetworkCommunications

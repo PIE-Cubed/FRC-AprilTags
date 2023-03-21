@@ -24,6 +24,7 @@ author    = "Alex Pereira, the Robo-Lions, and PIE3"
 # -- General configuration ---------------------------------------------------
 
 extensions = [
+    "sphinx.ext.autosectionlabel",
     "sphinx.ext.duration",
     "sphinx.ext.doctest",
     "sphinx.ext.autodoc",
