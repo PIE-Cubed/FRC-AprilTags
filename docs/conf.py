@@ -9,9 +9,9 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
+# import os, sys
 # sys.path.insert(0, os.path.abspath("."))
+import frc_apriltags
 
 
 # -- Project information -----------------------------------------------------
@@ -19,18 +19,20 @@
 project   = "FRC-AprilTags"
 copyright = "2022 - 2023, Alex Pereira, the Robo-Lions, and PIE3"
 author    = "Alex Pereira, the Robo-Lions, and PIE3"
+version   = frc_apriltags.__version__
 
 
 # -- General configuration ---------------------------------------------------
 
 extensions = [
-    "sphinx.ext.autosectionlabel",
-    "sphinx.ext.duration",
+    "sphinx_tabs.tabs",
     "sphinx.ext.doctest",
     "sphinx.ext.autodoc",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.duration",
     "sphinx.ext.autosummary",
     "sphinx.ext.intersphinx",
-    "sphinx_tabs.tabs",
+    "sphinx.ext.autosectionlabel",
 ]
 
 intersphinx_mapping = {

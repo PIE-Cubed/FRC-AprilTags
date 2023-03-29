@@ -1,4 +1,5 @@
-sphinx>=5
+sphinx
 sphinx_tabs
 sphinx_rtd_theme
+importlib_metadata
 frc-apriltags>=1.0.0

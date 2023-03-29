@@ -42,6 +42,8 @@ idna==3.4
     # via requests
 imagesize==1.4.1
     # via sphinx
+importlib-metadata==6.1.0
+    # via -r requirements.in
 iniconfig==2.0.0
     # via pytest
 jinja2==3.1.2
@@ -168,6 +170,8 @@ wpilib==2023.4.2.0
     #   pyfrc
     #   robotpy
     #   robotpy-wpilib-utilities
+zipp==3.15.0
+    # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
