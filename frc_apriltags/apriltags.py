@@ -23,8 +23,8 @@ class Detector:
         """
         Constructor for the Detector class.
 
-        @param teamNumber: Your FRC team's number.
-        @param size: The size of the AprilTag in inches.
+        :param teamNumber: Your FRC team's number.
+        :param size: The size of the AprilTag in inches.
         """
         # Instance creation
         self.timer = Timer()

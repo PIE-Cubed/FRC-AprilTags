@@ -16,7 +16,7 @@ class NetworkCommunications:
         """
         Constructor for the NetworkCommunications class.
 
-        @param teamNumber: Your FRC team's number.
+        :param teamNumber: Your FRC team's number.
         """
         # Variables
         self.logStatus = False

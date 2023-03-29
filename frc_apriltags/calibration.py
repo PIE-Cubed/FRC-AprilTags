@@ -26,10 +26,10 @@ class Calibrate:
     def __init__(self, cap, camNum: int, numImages: int = 15, dirPath: str = "/home/robolions/Documents/2023-Jetson-Code-Test") -> None:
         """
         Constructor for the Calibrate class.
-        @param cap: The ``cv2.VideoCapture`` object.
-        @param camNum: The camera number.
-        @param numImages: The number of calibration images to take.
-        @param dirPath: Should be aquired by running ``Path(__file__).absolute().parent.__str__()`` in the script calling this method.
+        :param cap: The ``cv2.VideoCapture`` object.
+        :param camNum: The camera number.
+        :param numImages: The number of calibration images to take.
+        :param dirPath: Should be aquired by running ``Path(__file__).absolute().parent.__str__()`` in the script calling this method.
         """
         # Localizes parameters
         self.cap               = cap

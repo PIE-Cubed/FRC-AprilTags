@@ -13,8 +13,8 @@ class AprilTag:
         """
         Constructor for the AprilTag class.
 
-        @param id: The id of the AprilTag.
-        @param pose: The ``Pose3d`` of the AprilTag.
+        :param id: The id of the AprilTag.
+        :param pose: The ``Pose3d`` of the AprilTag.
         """
         # Localize parameters
         self.id = id

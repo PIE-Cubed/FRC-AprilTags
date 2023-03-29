@@ -20,9 +20,9 @@ class BasicStreaming:
         """
         Constructor for the BasicStreaming class.
 
-        @param camNum: The camera number.
-        @param path: Can be found on Linux by running ``find /dev/v4l``.
-        @param resolution: Width by height.
+        :param camNum: The camera number.
+        :param path: Can be found on Linux by running ``find /dev/v4l``.
+        :param resolution: Width by height.
         """
         # Creates a CameraServer
         CS.enableLogging()
@@ -59,10 +59,10 @@ class CustomStreaming:
         """
         Constructor for the CustomStreaming class.
 
-        @param camNum: The camera number.
-        @param path: Can be found on Linux by running ``find /dev/v4l``.
-        @param resolution: Width by height.
-        @param fps: The desired fps of the camera.
+        :param camNum: The camera number.
+        :param path: Can be found on Linux by running ``find /dev/v4l``.
+        :param resolution: Width by height.
+        :param fps: The desired fps of the camera.
         """
         # Creates a USBCamera
         self.camera = USBCamera(camNum = camNum, camPath = path, resolution = resolution, fps = fps, calibrate = False)
@@ -96,6 +96,14 @@ class CustomStreaming:
         self.outputStream.putFrame(self.img)
 
         return self.img
+    
+    def prealocateSpace(self):
+        """
+        Prealocates space for the stream.
+
+        :return: An array of zeros with the same size as the stream.
+        """
+        return self.camera.prealocateSpace()
 
     def getUnprocessedStream(self):
         """
@@ -110,3 +118,11 @@ class CustomStreaming:
         Enables logging for this class.
         """
         self.logStatus = True
+
+    def getEnd(self):
+        """
+        Gets if the program should end.
+
+        :return: Should the program end?
+        """
+        return self.camera.getEnd()

@@ -28,10 +28,10 @@ class AprilTagFieldLayout:
         """
         Generates an field with AprilTags for testing.
 
-        @param tags: A list of all known tags.
-        @param fieldLength: The length (y) of the field, in meters.
-        @param fieldWidth: The width (x) of the field, in meters.
-        @param isRed: If you are on the red alliance.
+        :param tags: A list of all known tags.
+        :param fieldLength: The length (y) of the field, in meters.
+        :param fieldWidth: The width (x) of the field, in meters.
+        ;param isRed: If you are on the red alliance.
         """
         # Localize parameters
         self.fieldLength = fieldLength

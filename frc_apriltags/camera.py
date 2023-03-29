@@ -24,12 +24,12 @@ class USBCamera:
         """
         Constructor for the USBCamera class.
 
-        @param camNumber: The camera number.
-        @param path: It can be found on Linux by running ``find /dev/v4l``.
-        @param resolution: The desired resolution for the camera (width, length).
-        @param fps: The desired fps for the camera.
-        @param calibrate: Should the camera be calibrated this camera.
-        @param dirPath: Should be aquired by running ``Path(__file__).absolute().parent.__str__()`` in the script calling this method.
+        :param camNumber: The camera number.
+        :param path: It can be found on Linux by running ``find /dev/v4l``.
+        :param resolution: The desired resolution for the camera (width, length).
+        :param fps: The desired fps for the camera.
+        :param calibrate: Should the camera be calibrated this camera.
+        :param dirPath: Should be aquired by running ``Path(__file__).absolute().parent.__str__()`` in the script calling this method.
         """
         # Set camera properties
         self.camNum     = camNum
@@ -71,7 +71,7 @@ class USBCamera:
         self.cap.set(cv.CAP_PROP_FRAME_HEIGHT, cameraRes[1])
         self.cap.set(cv.CAP_PROP_FPS, fps)
 
-        # Gets the highest value they go to
+        # Gets the value they are currently at
         width  = int(self.cap.get(cv.CAP_PROP_FRAME_WIDTH))
         height = int(self.cap.get(cv.CAP_PROP_FRAME_HEIGHT))
         fps    = int(self.cap.get(cv.CAP_PROP_FPS))
@@ -84,7 +84,7 @@ class USBCamera:
 
         # Prints telemetry
         print("Resolution:", str(width) + "x" + str(height))
-        print("Max FPS:", fps)
+        print("FPS:", fps)
 
         # Sets the resolution to the true value
         self.resolution = (width, height)

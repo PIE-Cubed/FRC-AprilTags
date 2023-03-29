@@ -1,6 +1,6 @@
 from pathlib import Path
 from wpimath.geometry import *
-from frc_apriltags import USBCamera, Detector, BasicStreaming
+from frc_apriltags import USBCamera, Detector
 from frc_apriltags.Utilities import Logger
 
 # Gets the directory path
@@ -13,9 +13,6 @@ tagCamRes = (1280, 720)
 # Creates a USBCamera and calibrates it
 camera = USBCamera(camNum = 0, camPath = None, resolution = tagCamRes, fps = 30, calibrate = True, dirPath = dirPath)
 camMatrix = camera.getMatrix()
-
-# Creates a camera for the drivers
-driverCam = BasicStreaming(camNum = 1)
 
 # Prealocate space for the detection stream
 stream = camera.prealocateSpace()
