@@ -17,7 +17,7 @@ name = "frc-apriltags"  # Required
 #
 # For a discussion on single-sourcing the version, see
 # https://packaging.python.org/guides/single-sourcing-package-version/
-version = "1.0.2" # Required
+version = "1.1.0" # Required
 
 # This is a one-line description or tagline of what your project does. This
 # corresponds to the "Summary" metadata field:
@@ -108,7 +108,8 @@ dependencies = [
     "pupil-apriltags>=1.0.4",
     "robotpy[cscore]>=2023.4.2",
     "pynetworktables>=2021.0.0",
-    "opencv-contrib-python>=4.7.0"
+    "opencv-contrib-python>=4.7.0",
+    "importlib_metadata>=6.0.0",
 ]
 
 # List additional groups of dependencies here (e.g. development
