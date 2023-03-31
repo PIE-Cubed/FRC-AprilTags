@@ -20,7 +20,7 @@ stream = driverCam.prealocateSpace()
 # Main loop
 while (True):
     # Gets the stream
-    stream = driverCam.getUnprocessedStream()
+    stream = driverCam.getStream()
 
     # Displays the stream
     cv.imshow("Stream", stream)
