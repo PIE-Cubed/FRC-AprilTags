@@ -72,9 +72,9 @@ class USBCamera:
         self.cap.set(cv.CAP_PROP_FPS, fps)
 
         # Gets the value they are currently at
-        width  = int(self.cap.get(cv.CAP_PROP_FRAME_WIDTH))
-        height = int(self.cap.get(cv.CAP_PROP_FRAME_HEIGHT))
-        fps    = int(self.cap.get(cv.CAP_PROP_FPS))
+        self.width  = int(self.cap.get(cv.CAP_PROP_FRAME_WIDTH))
+        self.height = int(self.cap.get(cv.CAP_PROP_FRAME_HEIGHT))
+        self.fps    = int(self.cap.get(cv.CAP_PROP_FPS))
 
         # Set the capture to be MJPG format
         self.cap.set(cv.CAP_PROP_FOURCC, cv.VideoWriter_fourcc(*'MJPG'))
@@ -83,11 +83,11 @@ class USBCamera:
         self.stream = self.prealocateSpace()
 
         # Prints telemetry
-        print("Resolution:", str(width) + "x" + str(height))
-        print("FPS:", fps)
+        print("Resolution:", str(self.width) + "x" + str(self.height))
+        print("FPS:", self.fps)
 
         # Sets the resolution to the true value
-        self.resolution = (width, height)
+        self.resolution = (self.width, self.height)
 
         # Updates log
         Logger.logInfo("Capture resized", self.logStatus)
@@ -193,11 +193,19 @@ class USBCamera:
 
     def getMatrix(self):
         """
-        Returns the intrinsic camera matrix.
+        Gets the intrinsic camera matrix.
 
-        :return: The Camera's Intrinsic Matrix.
+        :return: The camera's intrinsic matrix.
         """
         return self.camMatrix
+    
+    def getResolution(self):
+        """
+        Gets the camera's true resolution.
+
+        :return: The camera resolution.
+        """
+        return self.resolution
 
     def displayStream(self, streamType: int = 1):
         """

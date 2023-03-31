@@ -46,7 +46,7 @@ class BasicStreaming:
         self.logStatus = True
 
 # Creates the CustomStreaming Class
-class CustomStreaming:
+class CustomStreaming(USBCamera):
     """
     Use this class to stream processed images back to the driver station.
 
@@ -65,7 +65,7 @@ class CustomStreaming:
         :param fps: The desired fps of the camera.
         """
         # Creates a USBCamera
-        self.camera = USBCamera(camNum = camNum, camPath = path, resolution = resolution, fps = fps, calibrate = False)
+        super().__init__(camNum = camNum, camPath = path, resolution = resolution, fps = fps, calibrate = False)
 
         # Creates a CameraServer
         CS.enableLogging()
@@ -74,55 +74,31 @@ class CustomStreaming:
         self.outputStream = CS.putVideo(name = "Camera " + str(camNum), width = resolution[0], height = resolution[1])
 
         # Preallocates for the incoming image
-        self.img = self.camera.prealocateSpace()
+        self.img = self.prealocateSpace()
 
         # Updates log
         Logger.logInfo("Stream initialized for camera " + str(camNum), True)
 
-    def streamImage(self, stream = None):
+    def streamImage(self, img = None):
         """
         Streams the camera back to ShuffleBoard for driver use.
 
-        :param stream: A processed stream.
+        :param img: A processed stream.
         :return: The processed stream.
         """
         # Grab a frame from the camera and put it in the source image
-        if (stream is not None):
-            self.img = stream
+        if (img is not None):
+            self.img = img
         else:
-            self.img = self.camera.getStream()
+            self.img = self.getStream()
 
         # Sends an image back to ShuffleBoard
         self.outputStream.putFrame(self.img)
 
         return self.img
-    
-    def prealocateSpace(self):
-        """
-        Prealocates space for the stream.
-
-        :return: An array of zeros with the same size as the stream.
-        """
-        return self.camera.prealocateSpace()
-
-    def getUnprocessedStream(self):
-        """
-        Gets the unprocessed stream of this camera.
-
-        Note: Image processing must happen outside of this class.
-        """
-        return self.camera.getStream()
 
     def enableLogging(self):
         """
         Enables logging for this class.
         """
         self.logStatus = True
-
-    def getEnd(self):
-        """
-        Gets if the program should end.
-
-        :return: Should the program end?
-        """
-        return self.camera.getEnd()
