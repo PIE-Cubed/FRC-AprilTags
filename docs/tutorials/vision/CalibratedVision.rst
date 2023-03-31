@@ -127,7 +127,7 @@ routine.
     with more extreme angles to properly calibrate the camera.
 
 End
-^^^
+---
 
 Congratulations! You have learned now to sucesfully calibrate your camera!
 

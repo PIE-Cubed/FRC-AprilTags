@@ -132,7 +132,7 @@ delay of one milisecond by using the waitKey() function from the OpenCV library.
 allowing the program to continue with no delay causes numerous errors within the OpenCV portions of the package.
 
 End
-^^^
+---
 
 Congratulations! You now have the tools to understand the basics of the USBCamera class!
 

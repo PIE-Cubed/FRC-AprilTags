@@ -143,13 +143,100 @@ specify the camPath variable and provide the camera's path, as shown below:
                 if ( (cam0.getEnd() == True) or (cam1.getEnd() == True) ):
                     break
 
-Something
-^^^^^^^^^
+Basic Streaming
+^^^^^^^^^^^^^^^
 
+The Basic Streaming class allows for the user to send data back to
+SmartDashboard or ShuffleBoard using CSCore. As this class was designed
+for simplicity, it lacks any form of customization on the coprocessor
+and can only be used with its default settings. To start the stream,
+run the following code:
 
+.. code-block:: python
+
+    from wpimath.geometry import *
+    from frc_apriltags import BasicStreaming, NetworkCommunications
+
+    # Starts the required network tables
+    comms = NetworkCommunications(2199)
+
+    # Defines the camera resolution (width x height)
+    camRes = (240, 144)
+
+    # Creates a camera for the drivers
+    driverCam = BasicStreaming(camNum = 0, resolution = camRes)
+
+    # Main loop
+    while (True):
+        pass
+
+This code starts the required network tables by instantiating the NetworkCommunications class
+(2199 is used as an example team) and then creates the basic stream camera. To keep this camera
+running, however, the program must remain active, hence the while loop.
+
+Now that the camera is running, it is possible to edit some of the settings using the CSCore dashboard.
+To open this dashboard, click `this link <http://localhost:1181>`_ which will open into a dashboard
+that looks similar to this:
+
+.. image:: ../../images/dashboard.png
+
+On this page, you can tweak the settings of the camera to your hearts content. You can also tweak
+a few settings in the ShuffleBoard camera widget as well.
+
+Custom Streaming
+^^^^^^^^^^^^^^^^
+
+The Basic Streaming class allows for the user to send processed data back to
+SmartDashboard or ShuffleBoard using CSCore. This class does not allow for any
+customization once the once it has been instanciated, so any cugstomization
+will require that the program is stopped and then restarted.
+To start the custom stream, run the following code:
+
+.. code-block:: python
+
+    from wpimath.geometry import *
+    from frc_apriltags import CustomStreaming, NetworkCommunications
+
+    # Starts the required network tables
+    comms = NetworkCommunications(2199)
+
+    # Defines the camera resolution (width x height)
+    camRes = (240, 144)
+
+    # Creates a camera for the drivers
+    driverCam = CustomStreaming(camNum = 0, resolution = camRes, fps = 15)
+
+    # Prealocate space for the detection stream
+    stream = driverCam.prealocateSpace()
+
+    # Main loop
+    while (True):
+        # Gets the stream
+        stream = driverCam.getUnprocessedStream()
+
+        # OpenCV processing here...
+        # 
+
+        # Sends the stream back
+        driverCam.streamImage(stream = stream)
+
+        # Press q to end the program
+        if ( driverCam.getEnd() == True ):
+            break
+
+This code does the same thing as the BasicStreaming implementaion,
+but allows you to send a processed image back to the driver station by passing
+that image as the stream parameter in streamImage().
+
+With the camera running, we can use getUnprocessedStream() to get the stream from the
+camera. With this stream stored as a variables, we can use OpenCV to process the stream
+and then send that back with streamImage(). Examples of OpenCV applications include
+object tracking, ROI fields, and other automated functions. To see the stream being sent you
+can once again open the CSCore dashboard with `this link <http://localhost:1181>`_,
+but it will no longer have any of the customization options.
 
 End
-^^^
+---
 
 Congratulations! You now have an understanding of all the computer vision functions that this package has
 to offer!
