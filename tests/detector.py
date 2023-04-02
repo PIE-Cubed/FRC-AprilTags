@@ -1,7 +1,14 @@
+# Import Libraries
 from pathlib import Path
 from wpimath.geometry import *
-from frc_apriltags import USBCamera, Detector
+from frc_apriltags import Detector, USBCamera
 from frc_apriltags.Utilities import Logger
+
+# Import Methods
+from frc_apriltags import startNetworkComms
+
+# Starts the network communications
+startNetworkComms(2199)
 
 # Gets the directory path
 dirPath = Path(__file__).absolute().parent.__str__()
@@ -18,7 +25,7 @@ camMatrix = camera.getMatrix()
 stream = camera.prealocateSpace()
 
 # Instance creation
-detector = Detector(teamNumber = 2199, size = 6)
+detector = Detector(size = 6)
 
 # Main loop
 while (True):

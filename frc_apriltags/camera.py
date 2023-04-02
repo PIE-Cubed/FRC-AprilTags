@@ -1,9 +1,7 @@
 # Import Libraries
 import cv2   as cv
 import numpy as np
-
-# Import Classes
-from frc_apriltags import Calibrate
+from   frc_apriltags import Calibrate
 
 # Import Utilities
 from frc_apriltags.Utilities import Logger
@@ -20,7 +18,7 @@ class USBCamera:
     :param calibrate: Should the camera be calibrated this camera.
     :param dirPath: Should be aquired by running ``Path(__file__).absolute().parent.__str__()`` in the script calling this method.
     """
-    def __init__(self, camNum: int = 0, camPath: str = None, resolution: tuple = (0, 0), fps: int = 30, calibrate: bool = False, dirPath: str = "/home/robolions/Documents/2023-Jetson-Code-Test") -> None:
+    def __init__(self, camNum: int = 0, path: str = None, resolution: tuple = (0, 0), fps: int = 30, calibrate: bool = False, dirPath: str = "/home/robolions/Documents/2023-Jetson-Code-Test") -> None:
         """
         Constructor for the USBCamera class.
 
@@ -40,11 +38,11 @@ class USBCamera:
         self.calibrate  = calibrate
 
         # Creates a capture
-        if (camPath is not None):
-            # If camPath is known, use the camPath
-            self.cap = cv.VideoCapture(camPath)
+        if (path is not None):
+            # If path is known, use the path
+            self.cap = cv.VideoCapture(path)
         else:
-            # camPath is unknown, use the camera number
+            # path is unknown, use the camera number
             self.cap = cv.VideoCapture(self.camNum)
         
         # Resizes the capture
@@ -96,7 +94,7 @@ class USBCamera:
         """
         Prealocates space for the stream.
 
-        :return: An array of zeros with the same size as the stream.
+        :return: An array of zeros with the same resolution as the camera.
         """
         return np.zeros(shape = (self.resolution[1], self.resolution[0], 3), dtype = np.uint8)
 

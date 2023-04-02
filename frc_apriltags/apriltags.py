@@ -4,9 +4,7 @@ import numpy as np
 import pupil_apriltags
 from   wpilib import Timer
 from   wpimath.geometry import *
-
-# Import Classes
-from frc_apriltags import NetworkCommunications
+from   frc_apriltags import NetworkCommunications
 
 # Import Utilities
 from frc_apriltags.Utilities import Logger, Units
@@ -16,19 +14,17 @@ class Detector:
     """
     Use this class to detect AprilTags from the tag16h5 family.
 
-    :param teamNumber: Your FRC team's number.
     :param size: The size of the AprilTag in inches.
     """
-    def __init__(self, teamNumber: int = 2199, size: int = 6) -> None:
+    def __init__(self, size: int = 6) -> None:
         """
         Constructor for the Detector class.
 
-        :param teamNumber: Your FRC team's number.
         :param size: The size of the AprilTag in inches.
         """
         # Instance creation
         self.timer = Timer()
-        self.comms = NetworkCommunications(teamNumber)
+        self.comms = NetworkCommunications()
 
         # Creates a pupil apriltags detector
         self.detector = pupil_apriltags.Detector(families = "tag16h5", nthreads = 10, quad_decimate = 1.0, quad_sigma = 0.0, refine_edges = 2.0, decode_sharpening = 1.00)

@@ -1,7 +1,14 @@
+# Import Libraries
 from pathlib import Path
 from wpimath.geometry import *
-from frc_apriltags import BasicStreaming
+from frc_apriltags import Streaming
 from frc_apriltags.Utilities import Logger
+
+# Import Methods
+from frc_apriltags import startNetworkComms
+
+# Starts the network communications
+startNetworkComms(2199)
 
 # Gets the directory path
 dirPath = Path(__file__).absolute().parent.__str__()
@@ -11,7 +18,7 @@ Logger.setLogPath(dirPath)
 camRes = (360, 240)
 
 # Creates a camera for the drivers
-driverCam = BasicStreaming(camNum = 0, resolution = camRes)
+driverCam = Streaming(camNum = 0, resolution = camRes, fps = 20)
 
 # Main loop
 while (True):

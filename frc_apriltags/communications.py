@@ -1,6 +1,5 @@
 # Import Libraries
-import ntcore
-from   networktables import *
+from networktables import *
 
 # Import Utilities
 from frc_apriltags.Utilities import Logger
@@ -9,31 +8,16 @@ from frc_apriltags.Utilities import Logger
 class NetworkCommunications:
     """
     Use this class to communicate with the RoboRio over NetworkTables.
-
-    :param teamNumber: Your FRC team's number.
     """
-    def __init__(self, teamNumber: int = 2199) -> None:
+    def __init__(self) -> None:
         """
         Constructor for the NetworkCommunications class.
-
-        :param teamNumber: Your FRC team's number.
         """
         # Variables
         self.logStatus = False
 
-        # Get a default network table
-        nt = ntcore.NetworkTableInstance.getDefault()
-        nt.setServerTeam(teamNumber)
-        nt.startClient3(__file__)
-
-        # Start a NetworkTables client
-        NetworkTables.startClientTeam(teamNumber)
-
-        # Get a NetworkTables Instance
-        ntinst = NetworkTablesInstance.getDefault()
-
         # Create a TagInfo Table and its Entries
-        TagInfo = ntinst.getTable("TagInfo")
+        TagInfo            = NetworkTables.getTable("TagInfo")
         self.targetValid   = TagInfo.getEntry("tv")            # Boolean
         self.bestResult    = TagInfo.getEntry("BestResult")    # Double[]
         self.bestResultId  = TagInfo.getEntry("BestResultId")  # Double
