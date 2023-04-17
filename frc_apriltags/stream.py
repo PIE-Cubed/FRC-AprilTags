@@ -41,7 +41,7 @@ class Streaming():
         self.camera.setFPS(fps)
 
         # Gets images from the camera
-        self.sink = CS.getVideo()
+        self.sink = CS.getVideo(self.camera)
 
         # Creates an output stream
         self.outputStream = CS.putVideo(name = "Processed Camera" + str(camNum), width = resolution[0], height = resolution[1])

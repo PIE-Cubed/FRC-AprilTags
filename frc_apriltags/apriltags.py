@@ -83,16 +83,20 @@ class Detector:
 
             # Throws out tags not present on the field
             if (1 <= tag_num <= 8):
-                # Throws out noise
-                if ((hamming <= maxHamming) and (error <= maxError) and (decision_margin >= minConfidence)):
-                    # Creates a 3d pose array from the rotation matrix and translation vectors
-                    poseMatrix = np.concatenate([rMatrix, tVecs], axis = 1)
-                else:
-                    # Detected tag is noise, move to next detection
-                    continue
+                pass
             else:
                 # Detected tag is not on field, move to next detection
                 continue
+
+            # Throws out noise
+            if ((hamming <= maxHamming) and (error <= maxError) and (decision_margin >= minConfidence)):
+                pass
+            else:
+                # Detected tag is noise, move to next detection
+                continue
+
+            # Creates a 3d pose array from the rotation matrix and translation vectors
+            poseMatrix = np.concatenate([rMatrix, tVecs], axis = 1)
 
             # Draws varying levels of information onto the image
             if (vizualization == 1):
@@ -114,7 +118,7 @@ class Detector:
             if (decision_margin > prevMargin):
                 prevMargin = decision_margin
                 best = result
-            
+
             # Gets current time
             time = self.timer.getFPGATimestamp()
 

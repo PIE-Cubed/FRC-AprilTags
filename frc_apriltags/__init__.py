@@ -26,17 +26,24 @@ __all__ = [
 @staticmethod
 def startNetworkComms(teamNumber: int = 2199):
     """
-    Starts an NT3 server, client, and a NetworkTable for a specific team.
+    Starts an NT4 server and client for a specific team.
 
     :param teamNumber: Your FRC team's number.
     """
+    import time
     import ntcore
     from   networktables import NetworkTables
 
-    # Create the NT3 server and client
+    # Waits for the Rio to start
+    time.sleep(5)
+
+    # Initializes the NetworkTables
+    NetworkTables.initialize(server = "roborio-" + str(teamNumber) + "-frc.local")
+
+    # Create the NT4 server and client
     nt = ntcore.NetworkTableInstance.getDefault()
     nt.setServerTeam(teamNumber)
-    nt.startClient3(__file__)
+    nt.startClient4(__file__)
 
     # Create the NetworkTables
     NetworkTables.startClientTeam(teamNumber)
