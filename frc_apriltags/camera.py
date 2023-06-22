@@ -110,45 +110,6 @@ class USBCamera:
         # Get results
         ret, self.camMatrix, self.camdistortion, rvecs, tvecs = self.calibrate.calibrateCamera()
 
-    def undistort(self):
-        """
-        Undistorts an image using cv.undistort().
-
-        :return: The undistorted stream.
-        """
-        # Creates a cameraMatrix
-        newCameraMatrix, roi = cv.getOptimalNewCameraMatrix(self.camMatrix, self.camdistortion, self.resolution, 1, self.resolution)
-
-        # Undistorts the image
-        undistortedStream = cv.undistort(self.getStream(), self.camMatrix, self.camdistortion, None, newCameraMatrix)
-
-        # Crops the image
-        x, y, w, h = roi
-        undistortedStream = undistortedStream[y:y+h, x:x+w]
-
-        return undistortedStream
-
-    def rectify(self):
-        """
-        Undistorts an image using cv.remap().
-
-        :return: The undistorted stream.
-        """
-        # Creates a cameraMatrix
-        newCameraMatrix, roi = cv.getOptimalNewCameraMatrix(self.camMatrix, self.camdistortion, self.resolution, 1, self.resolution)
-
-        # Unpacks the ROI data
-        x, y, w, h = roi
-
-        # Undistorts the image
-        mapx, mapy = cv.initUndistortRectifyMap(self.camMatrix, self.camdistortion, None, newCameraMatrix, (w,h), 5)
-        undistortedStream = cv.remap(self.getStream(), mapx, mapy, cv.INTER_LINEAR)
-
-        # Crop the image
-        undistortedStream = undistortedStream[y:y+h, x:x+w]
-
-        return undistortedStream
-
     def getStream(self):
         """
         Gets the stream from this camera's capture.
@@ -160,18 +121,21 @@ class USBCamera:
 
         return self.stream
 
-    def getUndistortedStream(self, algorithm: int = 1):
+    def getUndistortedStream(self):
         """
         Gets the undistorted stream from this camera's capture.
 
-        :param algorithm: 0 to use ``cv.undistort()``, 1 to use ``cv.remap()``
         :return: The undistorted stream.
         """
-        # Undistorts the stream
-        if (algorithm == 0):
-            self.stream = self.undistort()
-        elif (algorithm == 1): 
-            self.stream = self.rectify()
+        # Creates a cameraMatrix
+        newCameraMatrix, roi = cv.getOptimalNewCameraMatrix(self.camMatrix, self.camdistortion, self.resolution, 1, self.resolution)
+
+        # Undistorts the image
+        undistortedStream = cv.undistort(self.getStream(), self.camMatrix, self.camdistortion, None, newCameraMatrix)
+
+        # Crops the image
+        x, y, w, h = roi
+        self.undistortedStream = undistortedStream[y:y+h, x:x+w]
 
         return self.stream
 
