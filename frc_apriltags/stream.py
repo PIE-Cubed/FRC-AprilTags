@@ -3,7 +3,7 @@ import numpy as np
 from   cscore import CameraServer as CS
 
 # Import Utilities
-from frc_apriltags.Utilities import Logger
+from .Utilities import Logger
 
 # Creates the BasicStreaming Class
 class Streaming():

@@ -4,7 +4,7 @@ import numpy as np
 from   frc_apriltags import Calibrate
 
 # Import Utilities
-from frc_apriltags.Utilities import Logger
+from .Utilities import Logger
 
 # Creates the USBCamera class
 class USBCamera:

@@ -1,6 +1,7 @@
 # Created by Alex Pereira
 
 # Import Libraries
+import time
 import logging
 
 # Start of the Logging class
@@ -15,8 +16,11 @@ class Logger:
 
         :param dirPath: Should be aquired by running ``Path(__file__).absolute().parent.__str__()`` in the script calling this method
         """
+        # Gets the time as a string
+        currTime = time.ctime().replace(" ", "_")[4:]
+
         # Starts a logger
-        logging.basicConfig(filename = dirPath + "/DetectionLog.log", format="%(levelname)s:%(message)s", encoding = "utf-8", level = logging.DEBUG)
+        logging.basicConfig(filename = dirPath + f"/{currTime}.log", format="%(levelname)s:%(message)s", encoding = "utf-8", level = logging.DEBUG)
 
     @staticmethod
     def logDebug(debug: str, logStatus: bool = True):

@@ -7,8 +7,7 @@ from   importlib import resources
 from   wpimath.geometry import *
 
 # Import Utilities
-from frc_apriltags.Utilities import Logger
-from frc_apriltags.Utilities import AprilTag
+from Utilities import Logger, AprilTag
 
 # Creates the AprilTagFieldLayout class
 class AprilTagFieldLayout:
@@ -38,7 +37,7 @@ class AprilTagFieldLayout:
         self.fieldWidth = fieldWidth
 
         # Logs the field size
-        Logger.logInfo("Field length: {}, Field width: {}".format(self.fieldLength, self.fieldWidth), True)
+        Logger.logInfo(f"Field length: {self.fieldLength}, Field width: {self.fieldWidth}", True)
 
         # Creates the allTags array
         self.allTags = [Pose3d()] * 9
@@ -51,7 +50,7 @@ class AprilTagFieldLayout:
             self.allTags[id] = pose
 
             # Logs the tag information
-            Logger.logInfo("Tag {}. Pose: {}".format(id, pose), True)
+            Logger.logInfo(f"Tag {id}. Pose: {pose}", True)
 
         # Variables
         self.m_origin  = None
@@ -130,7 +129,7 @@ class AprilTagFieldLayout:
             raise ValueError("Unsupported enumerator value.")
         
         # Logs the origin
-        Logger.logInfo("Origin at {}".format(origin), self.logStatus)
+        Logger.logInfo(f"Origin at {origin}", self.logStatus)
 
     def getTags(self):
         """

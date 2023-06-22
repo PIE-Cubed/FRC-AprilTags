@@ -7,7 +7,7 @@ from   wpimath.geometry import *
 from   frc_apriltags import NetworkCommunications
 
 # Import Utilities
-from frc_apriltags.Utilities import Logger, Units
+from .Utilities import Logger, Units
 
 # Creates the Detector Class
 class Detector:
